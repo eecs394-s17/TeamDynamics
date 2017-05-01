@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AF } from '../Pages/firebase/firebase';
@@ -15,6 +16,9 @@ export const firebaseConfig = {
 };
 
 
+import { AppMaterialModule } from './app.material.module';
+
+import 'hammerjs';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,9 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule,
+    AppMaterialModule
   ],
   providers: [
     AF
