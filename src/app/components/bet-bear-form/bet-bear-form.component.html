@@ -1,4 +1,45 @@
-<h3>Form</h3>
+<md-card>
+  <md-card-content>
+    Please fill out the following BET/BEAR forms.
+  </md-card-content>
+</md-card>
+<md-card>
+  <form>
+    <md-tab-group dynamic-height>
+      <md-tab *ngFor="let teamMember of teamMembers" [label]="teamMember">
+        <md-card>
+            <md-input-container class="full-width">
+              <textarea mdInput placeholder="Behavior"></textarea>
+            </md-input-container>
 
-<md-progress-bar color="accent" mode="indeterminate" *ngIf="loading">
-</md-progress-bar>
+            <md-input-container class="full-width">
+              <textarea mdInput placeholder="Effect"></textarea>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <input mdInput placeholder="Thank You">
+            </md-input-container>
+        </md-card>
+
+        <md-card>
+            <md-input-container class="full-width">
+              <textarea mdInput placeholder="Behavior"></textarea>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <textarea mdInput placeholder="Effect"></textarea>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <textarea mdInput placeholder="Alternative"></textarea>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <textarea mdInput placeholder="Result"></textarea>
+            </md-input-container>
+        </md-card>
+      </md-tab>
+    </md-tab-group>
+  </form>
+  <button md-raised-button color="accent" class="full-width"> Submit </button>
+</md-card>
