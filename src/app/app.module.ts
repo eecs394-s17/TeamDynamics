@@ -4,18 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppMaterialModule } from './app.material.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
-// import { AF } from './firebase/firebase';
-// export const firebaseConfig = {
-//   apiKey: "AIzaSyAKVHJkONhx8gyWjJ0Z_AzpqLA3vjR3asI",
-//   authDomain: "teamdynamics-2eae2.firebaseapp.com",
-//   databaseURL: "https://teamdynamics-2eae2.firebaseio.com",
-//   projectId: "teamdynamics-2eae2",
-//   storageBucket: "teamdynamics-2eae2.appspot.com",
-//   messagingSenderId: "560129471399"
-// };
+import { AngularFireModule } from 'angularfire2';
+import { AF } from './firebase/firebase';
+export const firebaseConfig = {
+  apiKey: "AIzaSyAKVHJkONhx8gyWjJ0Z_AzpqLA3vjR3asI",
+  authDomain: "teamdynamics-2eae2.firebaseapp.com",
+  databaseURL: "https://teamdynamics-2eae2.firebaseio.com",
+  projectId: "teamdynamics-2eae2",
+  storageBucket: "teamdynamics-2eae2.appspot.com",
+  messagingSenderId: "560129471399"
+};
 
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
@@ -34,9 +35,10 @@ import { AppRoutingModule }     from './app-routing.module';
     BrowserAnimationsModule,
     AppMaterialModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
-    // AF
+    AF
   ],
   bootstrap: [AppComponent]
 })
