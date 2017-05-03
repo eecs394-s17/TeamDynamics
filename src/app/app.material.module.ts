@@ -6,7 +6,8 @@ import {
   MdListModule,
   MdButtonModule,
   MdProgressBarModule,
-  MdGridListModule
+  MdGridListModule,
+  MdTabsModule
 } from '@angular/material';
 
 @NgModule({
@@ -17,7 +18,8 @@ import {
     MdListModule,
     MdButtonModule,
     MdProgressBarModule,
-    MdGridListModule
+    MdGridListModule,
+    MdTabsModule
   ],
   exports: [
     MdToolbarModule,
@@ -26,7 +28,8 @@ import {
     MdListModule,
     MdButtonModule,
     MdProgressBarModule,
-    MdGridListModule
+    MdGridListModule,
+    MdTabsModule
   ],
 })
 export class AppMaterialModule { }

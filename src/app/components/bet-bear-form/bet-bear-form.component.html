@@ -1,4 +1,79 @@
-<h3>Form</h3>
+<md-card>
+  <md-card-content>
+    Please fill out the following BET/BEAR forms.
+  </md-card-content>
+</md-card>
+<md-card>
+    <md-tab-group dynamic-height>
+      <!-- <md-tab *ngFor="let teamMember of teamMembers" [label]="teamMember"> -->
+      <md-tab label="test">
+        <form [formGroup]="betBearForm">
+          <md-card>
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Behavior" formControlName="bet_1_behavior"></textarea>
+              </md-input-container>
 
-<md-progress-bar color="accent" mode="indeterminate" *ngIf="loading">
-</md-progress-bar>
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Effect" formControlName="bet_1_effect"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <input mdInput placeholder="Thank You" formControlName="bet_1_thankYou">
+              </md-input-container>
+          </md-card>
+
+          <md-card>
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Behavior" formControlName="bear_1_behavior"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Effect" formControlName="bear_1_effect"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Alternative" formControlName="bear_1_alternative"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Result" formControlName="bear_1_result"></textarea>
+              </md-input-container>
+          </md-card>
+
+          <md-card>
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Behavior" formControlName="bet_2_behavior"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Effect" formControlName="bet_2_effect"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <input mdInput placeholder="Thank You" formControlName="bet_2_thankYou">
+              </md-input-container>
+          </md-card>
+
+          <md-card>
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Behavior" formControlName="bear_2_behavior"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Effect" formControlName="bear_2_effect"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Alternative" formControlName="bear_2_alternative"></textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea mdInput placeholder="Result" formControlName="bear_2_result"></textarea>
+              </md-input-container>
+          </md-card>
+
+          <button md-raised-button color="accent" class="full-width" (click)="submit()"> Submit </button>
+        </form>
+      </md-tab>
+    </md-tab-group>
+</md-card>
