@@ -22,4 +22,16 @@ export class AF {
         console.log(error);
       });
   }
+
+  login(email:string, psw:string){
+    this.af.auth.login({ email: email, password: psw }).then(success => {
+      console.log('success');
+    }, err => {
+      alert('Email or Password is incorrect.');
+    });
+  }
+  logout(){
+    this.af.auth.logout();
+  }
+
 }

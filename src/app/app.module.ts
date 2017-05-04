@@ -7,7 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AF } from './firebase/firebase';
 import { firebaseConfig } from './secrets/firebaseConfig';
 
@@ -16,6 +16,11 @@ import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.c
 import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-forms.component';
 
 import { AppRoutingModule }     from './app-routing.module';
+
+const FirebaseAuthConfig = {
+    provider: AuthProviders.Password,
+    method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
@@ -31,7 +36,7 @@ import { AppRoutingModule }     from './app-routing.module';
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig, FirebaseAuthConfig),
   ],
   providers: [
     AF
