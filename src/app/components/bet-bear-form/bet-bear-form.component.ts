@@ -5,6 +5,7 @@ import { AF } from '../../firebase/firebase';
 @Component({
   selector: 'bet-bear-form',
   templateUrl: './bet-bear-form.component.html',
+  styleUrls: ['./bet-bear-form.component.scss']
 })
 export class BetBearFormComponent implements OnInit {
   private teamBetBearForm: FormGroup;

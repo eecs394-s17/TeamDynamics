@@ -6,18 +6,27 @@ body {
   margin: 0;
 }
 
-.full-width {
+.app-content .full-width {
   width: 100%;
 }
 
-.mat-card.no-pad {
+.app-content .no-pad {
   padding: 0;
 }
 
-md-card {
+.app-content md-card {
   margin: 1em;
 }
 
-.mat-simple-snackbar-message {
+.app-content .mat-simple-snackbar-message {
   margin: auto;
+}
+
+md-tab-body.mat-tab-body {
+  height: 100% !important;
+}
+
+md-tab-header.mat-tab-header {
+  margin-left: 1em;
+  margin-right: 1em;
 }

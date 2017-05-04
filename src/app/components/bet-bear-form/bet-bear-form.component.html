@@ -4,10 +4,10 @@
   </md-card-content>
 </md-card>
 <form [formGroup]="teamBetBearForm" (ngSubmit)="save(teamBetBearForm)">
-  <md-card>
+  <!-- <md-card> -->
     <md-tab-group dynamic-height formArrayName="individualBetBearForms">
       <md-tab
-      *ngFor="let betBearForm of teamBetBearForm.controls.individualBetBearForms.controls; let i=index" [formGroupName]="i" [label]="teamMembers[i]">
+      *ngFor="let betBearForm of teamBetBearForm.controls.individualBetBearForms.controls; let i=index" [formGroupName]="i" [label]="teamMembers[i]" class="full-height">
           <ng-container formArrayName="bets">
             <md-card *ngFor="let bet of betBearForm.controls.bets.controls; let j=index" [formGroupName]="j">
               <md-card-subtitle>
@@ -68,6 +68,6 @@
           <md-card class="no-pad" *ngIf="betBearForm.controls.bears.controls.length == 1"><button  (click)="addBear(betBearForm)" md-button color="primary" class="full-width"> Fill out an extra BEAR for {{teamMembers[i]}}</button></md-card>
       </md-tab>
     </md-tab-group>
-  </md-card>
-  <md-card class="no-pad"><button  type="submit" md-raised-button color="accent" class="full-width" [disabled]="!teamBetBearForm.valid"> Submit </button></md-card>
+  <!-- </md-card> -->
+  <md-card class="no-pad margin-top-zero"><button  type="submit" md-raised-button color="accent" class="full-width" [disabled]="!teamBetBearForm.valid"> Submit </button></md-card>
 </form>
