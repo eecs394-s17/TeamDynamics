@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppMaterialModule } from './app.material.module';
+import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
@@ -20,15 +20,13 @@ export const firebaseConfig = {
 
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
-import { IndividualBetBearFormComponent } from './components/bet-bear-form/individual-bet-bear-form.component';
 
 import { AppRoutingModule }     from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BetBearFormComponent,
-    IndividualBetBearFormComponent
+    BetBearFormComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,7 @@ import { AppRoutingModule }     from './app-routing.module';
     ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    AppMaterialModule,
+    MaterialModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
   ],
