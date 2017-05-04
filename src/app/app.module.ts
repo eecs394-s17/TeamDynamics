@@ -20,13 +20,15 @@ export const firebaseConfig = {
 
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
+import { IndividualBetBearFormComponent } from './components/bet-bear-form/individual-bet-bear-form.component';
 
 import { AppRoutingModule }     from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BetBearFormComponent
+    BetBearFormComponent,
+    IndividualBetBearFormComponent
   ],
   imports: [
     BrowserModule,
