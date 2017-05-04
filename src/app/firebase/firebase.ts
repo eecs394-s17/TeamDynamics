@@ -7,7 +7,7 @@ import { MdSnackBar } from '@angular/material';
 
 export class AF {
   public hostList: FirebaseListObservable<any>;
-  private formsList: FirebaseListObservable<any>;
+  public formsList: FirebaseListObservable<any>;
 
   constructor(public af: AngularFire, private snackbar: MdSnackBar) {
     this.formsList = this.af.database.list('/forms');
@@ -17,7 +17,7 @@ export class AF {
     this.formsList.push(formObject).then( success => {
         console.log(success);
         this.snackbar.open("Form uploaded successfully!");
-        // setTimeout(_ => this.snackbar.dismiss(), 5000);
+        setTimeout(_ => this.snackbar.dismiss(), 5000);
       }, error => {
         console.log(error);
       });
