@@ -9,14 +9,7 @@ import 'hammerjs';
 
 import { AngularFireModule } from 'angularfire2';
 import { AF } from './firebase/firebase';
-export const firebaseConfig = {
-  apiKey: "AIzaSyAKVHJkONhx8gyWjJ0Z_AzpqLA3vjR3asI",
-  authDomain: "teamdynamics-2eae2.firebaseapp.com",
-  databaseURL: "https://teamdynamics-2eae2.firebaseio.com",
-  projectId: "teamdynamics-2eae2",
-  storageBucket: "teamdynamics-2eae2.appspot.com",
-  messagingSenderId: "560129471399"
-};
+import { firebaseConfig } from './secrets/firebaseConfig';
 
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
