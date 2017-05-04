@@ -14,6 +14,7 @@ import { firebaseConfig } from './secrets/firebaseConfig';
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
 import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-forms.component';
+import { LoginComponent } from './components/login/login';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -26,7 +27,8 @@ const FirebaseAuthConfig = {
   declarations: [
     AppComponent,
     BetBearFormComponent,
-    FacViewFormsComponent
+    FacViewFormsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
