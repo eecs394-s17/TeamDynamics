@@ -3,30 +3,32 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppMaterialModule } from './app.material.module';
+import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AF } from './firebase/firebase';
-export const firebaseConfig = {
-  apiKey: "AIzaSyAKVHJkONhx8gyWjJ0Z_AzpqLA3vjR3asI",
-  authDomain: "teamdynamics-2eae2.firebaseapp.com",
-  databaseURL: "https://teamdynamics-2eae2.firebaseio.com",
-  projectId: "teamdynamics-2eae2",
-  storageBucket: "teamdynamics-2eae2.appspot.com",
-  messagingSenderId: "560129471399"
-};
+import { firebaseConfig } from './secrets/firebaseConfig';
 
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
+import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-forms.component';
+import { LoginComponent } from './components/login/login';
 
 import { AppRoutingModule }     from './app-routing.module';
+
+const FirebaseAuthConfig = {
+    provider: AuthProviders.Password,
+    method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    BetBearFormComponent
+    BetBearFormComponent,
+    FacViewFormsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +36,9 @@ import { AppRoutingModule }     from './app-routing.module';
     ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    AppMaterialModule,
+    MaterialModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig, FirebaseAuthConfig),
   ],
   providers: [
     AF

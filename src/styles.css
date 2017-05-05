@@ -5,3 +5,28 @@
 body {
   margin: 0;
 }
+
+.app-content .full-width {
+  width: 100%;
+}
+
+.app-content .no-pad {
+  padding: 0;
+}
+
+.app-content md-card {
+  margin: 1em;
+}
+
+simple-snack-bar .mat-simple-snackbar-message {
+  margin: auto;
+}
+
+md-tab-body.mat-tab-body {
+  height: 100% !important;
+}
+
+md-tab-header.mat-tab-header {
+  margin-left: 1em;
+  margin-right: 1em;
+}
