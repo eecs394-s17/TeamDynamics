@@ -3,7 +3,7 @@
     Please fill out the following BET/BEAR forms.
   </md-card-content>
 </md-card>
-<form [formGroup]="teamBetBearForm" (ngSubmit)="save(teamBetBearForm)">
+<form [formGroup]="teamBetBearForm">
   <!-- <md-card> -->
     <md-tab-group dynamic-height formArrayName="individualBetBearForms">
       <md-tab
@@ -69,5 +69,6 @@
       </md-tab>
     </md-tab-group>
   <!-- </md-card> -->
-  <md-card class="no-pad margin-top-zero"><button  type="submit" md-raised-button color="accent" class="full-width" [disabled]="!teamBetBearForm.valid"> Submit </button></md-card>
 </form>
+<md-card class="no-pad margin-top-zero"><button md-raised-button color="primary" class="full-width" (click)="save(teamBetBearForm)"> Save </button></md-card>
+<md-card class="no-pad"><button  type="submit" md-raised-button color="accent" class="full-width" [disabled]="!teamBetBearForm.valid" (click)="submit(teamBetBearForm)"> Submit </button></md-card>

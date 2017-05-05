@@ -13,7 +13,7 @@ export class AF {
     this.formsList = this.af.database.list('/forms');
   }
 
-  uploadForm(formObject): void {
+  submitForm(formObject): void {
     this.formsList.push(formObject).then( success => {
         console.log(success);
         this.snackbar.open("Form uploaded successfully!");
@@ -21,6 +21,20 @@ export class AF {
       }, error => {
         console.log(error);
       });
+  }
+
+  saveForm(formObject): void {
+    this.formsList.push(formObject).then( success => {
+      console.log(success);
+      this.snackbar.open("Form saved successfully!");
+      setTimeout(_ => this.snackbar.dismiss(), 5000);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getForm(id: string): FirebaseObjectObservable<any> {
+    return this.af.database.object('forms/' + id);
   }
 
   login(email:string, psw:string){

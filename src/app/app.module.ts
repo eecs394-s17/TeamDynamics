@@ -9,7 +9,6 @@ import 'hammerjs';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AF } from './firebase/firebase';
-import { firebaseConfig } from './secrets/firebaseConfig';
 
 import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
@@ -17,11 +16,18 @@ import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-form
 import { LoginComponent } from './components/login/login';
 
 import { AppRoutingModule }     from './app-routing.module';
+import { AppSecrets } from './secrets/app-secrets';
 
-const FirebaseAuthConfig = {
-    provider: AuthProviders.Password,
-    method: AuthMethods.Password
-}
+export const firebaseConfig = {
+  apiKey: AppSecrets.firebaseApi,
+  authDomain: "teamdynamics-7eb6e.firebaseapp.com",
+  databaseURL: "https://teamdynamics-7eb6e.firebaseio.com",
+  projectId: "teamdynamics-7eb6e",
+  storageBucket: "teamdynamics-7eb6e.appspot.com",
+  messagingSenderId: AppSecrets.firebaseMessagingSenderId,
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+};
 
 @NgModule({
   declarations: [
@@ -38,7 +44,7 @@ const FirebaseAuthConfig = {
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig, FirebaseAuthConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
     AF

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { AF } from '../../firebase/firebase';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'bet-bear-form',
@@ -23,23 +24,31 @@ export class BetBearFormComponent implements OnInit {
       reviewer: ['Me',Validators.required],
       individualBetBearForms: this.formBuilder.array([],Validators.compose([Validators.minLength(this.teamMembers.length), Validators.maxLength(this.teamMembers.length)]))
     });
+    // this.initEmptyBetBearForm();
+    this.initWithForm('-KjJCZETSnby--lIKthH');
+  }
 
+  initEmptyBetBearForm(): void {
     const control = <FormArray>this.teamBetBearForm.controls['individualBetBearForms'];
     for (var i = 0; i < this.teamMembers.length; i++) {
-      const individualBetBearFormCtrl = this.initIndividualBetBearForm(this.teamMembers[i]);
+      const individualBetBearFormCtrl = this.initIndividualBetBearForm(this.teamMembers[i], 2, 2);
       control.push(individualBetBearFormCtrl);
     }
   }
 
-  initIndividualBetBearForm(reviewee: string): FormGroup {
+
+  initIndividualBetBearForm(reviewee: string, numBets: number, numBears: number): FormGroup {
     let betBearForm = this.formBuilder.group({
       bets: this.formBuilder.array([], Validators.compose([Validators.minLength(1), Validators.maxLength(2)])),
       bears: this.formBuilder.array([], Validators.compose([Validators.minLength(1), Validators.maxLength(2)])),
-      reviewee: [reviewee, Validators.required]
+      reviewee: [reviewee, Validators.required],
+      status: 0
     });
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < numBets; i++) {
       this.addBet(betBearForm);
+    }
+    for (var i = 0; i < numBears; i ++){
       this.addBear(betBearForm);
     }
     return betBearForm;
@@ -106,6 +115,26 @@ export class BetBearFormComponent implements OnInit {
   }
 
   save(model): void {
-    this.afService.uploadForm(model.value);
+    this.afService.saveForm(model.value);
+  }
+
+  submit(model): void {
+    model.controls['status'].setValue(1);
+    this.afService.submitForm(model.value);
+  }
+
+  initWithForm(id: string): void {
+    this.afService.getForm(id).take(1).subscribe(snapshot => {
+
+
+      const control = <FormArray>this.teamBetBearForm.controls['individualBetBearForms'];
+      for (var i = 0; i < snapshot.individualBetBearForms.length; i++) {
+        const individualBetBearFormCtrl = this.initIndividualBetBearForm('',
+          snapshot.individualBetBearForms[i].bets.length,
+          snapshot.individualBetBearForms[i].bears.length);
+        control.push(individualBetBearFormCtrl);
+      }
+      this.teamBetBearForm.patchValue(snapshot);
+    });
   }
 }
