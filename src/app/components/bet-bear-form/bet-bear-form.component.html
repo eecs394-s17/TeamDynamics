@@ -1,73 +1,65 @@
 <md-card>
   <md-card-content>
     Please fill out the following BET/BEAR forms.
+    <md-list>
+     <md-list-item> Due Date: </md-list-item>
+     <md-list-item> Status: </md-list-item>
+    </md-list>
   </md-card-content>
 </md-card>
-<form [formGroup]="teamBetBearForm" (ngSubmit)="save(teamBetBearForm)">
-  <!-- <md-card> -->
-    <md-tab-group dynamic-height formArrayName="individualBetBearForms">
-      <md-tab
-      *ngFor="let betBearForm of teamBetBearForm.controls.individualBetBearForms.controls; let i=index" [formGroupName]="i" [label]="teamMembers[i]" class="full-height">
-          <ng-container formArrayName="bets">
-            <md-card *ngFor="let bet of betBearForm.controls.bets.controls; let j=index" [formGroupName]="j">
-              <md-card-subtitle>
-                BET<span *ngIf="betBearForm.controls.bets.controls.length > 1"> {{j + 1}}</span>: {{teamMembers[i]}}
-                <button md-icon-button *ngIf="betBearForm.controls.bets.controls.length > 1" (click)="removeBet(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
-              </md-card-subtitle>
-              <md-card-content>
-                <md-input-container class="full-width">
-                  <textarea rows="5" mdInput placeholder="Behavior" formControlName="behavior"></textarea>
-                  <md-hint *ngIf="!bet.controls['behavior'].valid">Please enter between 5-500 characters.</md-hint>
-                </md-input-container>
+<md-tab-group dynamic-height>
+  <md-tab
+  *ngFor="let betBearForm of teamBetBearForm?.individualBetBearForms" [label]="betBearForm.revieweeName" class="full-height">
+      <md-card *ngFor="let bet of betBearForm.bets; let i = index">
+        <md-card-subtitle>
+          BET<span *ngIf="betBearForm.bets?.length > 1"> {{i + 1}}</span>: {{ bet.revieweeName }}
+          <button md-icon-button *ngIf="betBearForm.bets?.length > 1" (click)="removeBet(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
+        </md-card-subtitle>
+        <md-card-content>
+          <md-input-container class="full-width">
+            <textarea [(ngModel)]="bet.behavior" rows="5" mdInput placeholder="Behavior"></textarea>
+          </md-input-container>
 
-                <md-input-container class="full-width">
-                  <textarea rows="5" mdInput placeholder="Effect" formControlName="effect"></textarea>
-                  <md-hint *ngIf="!bet.controls['effect'].valid">Please enter between 5-500 characters.</md-hint>
-                </md-input-container>
+          <md-input-container class="full-width">
+            <textarea [(ngModel)]="bet.effect" rows="5" mdInput placeholder="Effect"></textarea>
+          </md-input-container>
 
-                <md-input-container class="full-width">
-                  <input mdInput placeholder="Thank You" formControlName="thankYou">
-                  <md-hint *ngIf="!bet.controls['thankYou'].valid">Please enter between 5-50 characters.</md-hint>
-                </md-input-container>
-              </md-card-content>
-            </md-card>
-          </ng-container>
+          <md-input-container class="full-width">
+            <input [(ngModel)]="bet.thankYou" mdInput placeholder="Thank You">
+          </md-input-container>
+        </md-card-content>
+      </md-card>
 
-          <md-card class="no-pad" *ngIf="betBearForm.controls.bets.controls.length == 1"><button  (click)="addBet(betBearForm)" md-button color="primary" class="full-width"> Fill out an extra BET for {{teamMembers[i]}}</button></md-card>
+      <md-card class="no-pad" *ngIf="betBearForm.bets?.length == 1"><button  (click)="addBet(betBearForm)" md-button color="primary" class="full-width"> Fill out an extra BET for {{ betBearForm.revieweeName }}</button></md-card>
 
-          <ng-container formArrayName="bears">
-            <md-card *ngFor="let bear of betBearForm.controls.bears.controls; let j=index" [formGroupName]="j">
-              <md-card-subtitle>
-                BEAR<span *ngIf="betBearForm.controls.bears.controls.length > 1"> {{j + 1}}</span>: {{teamMembers[i]}}
-                <button md-icon-button *ngIf="betBearForm.controls.bears.controls.length > 1" (click)="removeBear(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
-              </md-card-subtitle>
-              <md-card-content>
-                <md-input-container class="full-width">
-                  <textarea rows="5" mdInput placeholder="Behavior" formControlName="behavior"></textarea>
-                  <md-hint *ngIf="!bear.controls['behavior'].valid">Please enter between 5-500 characters.</md-hint>
-                </md-input-container>
+      <md-card *ngFor="let bear of betBearForm.bears; let j = index">
+        <md-card-subtitle>
+          BEAR<span *ngIf="betBearForm.bears?.length > 1"> {{j + 1}}</span>: {{bear.revieweeName}}
+          <button md-icon-button *ngIf="betBearForm.bears?.length > 1" (click)="removeBear(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
+        </md-card-subtitle>
+        <md-card-content>
+          <md-input-container class="full-width">
+            <textarea [(ngModel)]="bear.behavior" rows="5" mdInput placeholder="Behavior"></textarea>
+          </md-input-container>
 
-                <md-input-container class="full-width">
-                  <textarea rows="5" mdInput placeholder="Effect" formControlName="effect"></textarea>
-                  <md-hint *ngIf="!bear.controls['effect'].valid">Please enter between 5-500 characters.</md-hint>
-                </md-input-container>
+          <md-input-container class="full-width">
+            <textarea [(ngModel)]="bear.effect" rows="5" mdInput placeholder="Effect"></textarea>
+          </md-input-container>
 
-                <md-input-container class="full-width">
-                  <textarea rows="5" mdInput placeholder="Alternative" formControlName="alternative"></textarea>
-                  <md-hint *ngIf="!bear.controls['alternative'].valid">Please enter between 5-500 characters.</md-hint>
-                </md-input-container>
+          <md-input-container class="full-width">
+            <textarea [(ngModel)]="bear.alternative" rows="5" mdInput placeholder="Alternative"></textarea>
+          </md-input-container>
 
-                <md-input-container class="full-width">
-                  <textarea rows="5" mdInput placeholder="Result" formControlName="result"></textarea>
-                  <md-hint *ngIf="!bear.controls['result'].valid">Please enter between 5-500 characters.</md-hint>
-                </md-input-container>
-              </md-card-content>
-            </md-card>
-          </ng-container>
-          
-          <md-card class="no-pad" *ngIf="betBearForm.controls.bears.controls.length == 1"><button  (click)="addBear(betBearForm)" md-button color="primary" class="full-width"> Fill out an extra BEAR for {{teamMembers[i]}}</button></md-card>
-      </md-tab>
-    </md-tab-group>
-  <!-- </md-card> -->
-  <md-card class="no-pad margin-top-zero"><button  type="submit" md-raised-button color="accent" class="full-width" [disabled]="!teamBetBearForm.valid"> Submit </button></md-card>
-</form>
+          <md-input-container class="full-width">
+            <textarea [(ngModel)]="bear.result" rows="5" mdInput placeholder="Result"></textarea>
+          </md-input-container>
+        </md-card-content>
+      </md-card>
+
+      <md-card class="no-pad" *ngIf="betBearForm.bears?.length == 1"><button  (click)="addBear(betBearForm)" md-button color="primary" class="full-width"> Fill out an extra BEAR for {{ betBearForm.revieweeName }}</button></md-card>
+  </md-tab>
+</md-tab-group>
+
+<md-card class="no-pad margin-top-zero"><button md-raised-button color="primary" class="full-width" (click)="save(teamBetBearForm)"> Save </button></md-card>
+
+<md-card class="no-pad"><button  type="submit" md-raised-button color="accent" class="full-width" (click)="submit(teamBetBearForm)"> Submit </button></md-card>

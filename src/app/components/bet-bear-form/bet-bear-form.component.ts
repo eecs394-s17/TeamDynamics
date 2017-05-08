@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
+
+import { Bet } from '../../classes/bet';
+import { Bear } from '../../classes/bear';
+import { IndividualBetBearForm } from '../../classes/individual-bet-bear-form';
+import { TeamBetBearForm } from '../../classes/team-bet-bear-form';
+
 import { AF } from '../../firebase/firebase';
 
 @Component({
@@ -8,104 +14,63 @@ import { AF } from '../../firebase/firebase';
   styleUrls: ['./bet-bear-form.component.scss']
 })
 export class BetBearFormComponent implements OnInit {
-  private teamBetBearForm: FormGroup;
-  private teamMembers: Array<string>;
+  private teamMembers;
+  private teamBetBearForm: TeamBetBearForm;
 
-  constructor (private formBuilder: FormBuilder, private afService: AF) {}
+  constructor (private afService: AF) {}
 
   ngOnInit(): void {
     this.teamMembers = [
-      'Dave',
-      'Joe'
+      {name: 'Dave', id: '12asdf2'},
+      {name: 'Joe', id: '1t234w'}
     ];
 
-    this.teamBetBearForm = this.formBuilder.group({
-      reviewer: ['Me',Validators.required],
-      individualBetBearForms: this.formBuilder.array([],Validators.compose([Validators.minLength(this.teamMembers.length), Validators.maxLength(this.teamMembers.length)]))
-    });
+    this.initWithEmptyForm();
+    // this.initWithForm('-Kj_rVg7vx5PZrEUzOXl');
+  }
 
-    const control = <FormArray>this.teamBetBearForm.controls['individualBetBearForms'];
+  initWithForm(formId: string): void {
+    this.afService.getForm(formId).subscribe(snapshot => {
+      console.log(snapshot);
+      this.teamBetBearForm = snapshot as TeamBetBearForm;
+      console.log(this.teamBetBearForm);
+    });
+  }
+
+  initWithEmptyForm(): void {
+    this.teamBetBearForm = new TeamBetBearForm();
+    this.teamBetBearForm.reviewerName = 'alex';
+    this.teamBetBearForm.reviewerId = '123s';
+    this.teamBetBearForm.status = 0;
     for (var i = 0; i < this.teamMembers.length; i++) {
-      const individualBetBearFormCtrl = this.initIndividualBetBearForm(this.teamMembers[i]);
-      control.push(individualBetBearFormCtrl);
+      this.teamBetBearForm.addIndividualBetBearForm(this.teamMembers[i].id, this.teamMembers[i].name, 2, 2);
     }
   }
 
-  initIndividualBetBearForm(reviewee: string): FormGroup {
-    let betBearForm = this.formBuilder.group({
-      bets: this.formBuilder.array([], Validators.compose([Validators.minLength(1), Validators.maxLength(2)])),
-      bears: this.formBuilder.array([], Validators.compose([Validators.minLength(1), Validators.maxLength(2)])),
-      reviewee: [reviewee, Validators.required]
-    });
-
-    for (var i = 0; i < 2; i++) {
-      this.addBet(betBearForm);
-      this.addBear(betBearForm);
-    }
-    return betBearForm;
+  addBet(betBearForm: IndividualBetBearForm): void {
+    betBearForm.bets.push(new Bet());
   }
 
-  initBet(): FormGroup {
-    return this.formBuilder.group({
-      behavior: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(500)]],
-      effect: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(500)]],
-      thankYou: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(50)]],
-    });
+  addBear(betBearForm: IndividualBetBearForm): void {
+    betBearForm.bears.push(new Bear());
   }
 
-  initBear(): FormGroup {
-    return this.formBuilder.group({
-      behavior: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(500)]],
-      effect: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(500)]],
-      alternative: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(500)]],
-      result: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(500)]],
-    });
+  removeBet(betBearForm: IndividualBetBearForm, j: number): void {
+    betBearForm.bets.splice(j,1);
   }
 
-  addBet(betBearForm: FormGroup): void {
-    const control = <FormArray>betBearForm.controls['bets'];
-    const betCtrl = this.initBet();
-    control.push(betCtrl);
+  removeBear(betBearForm: IndividualBetBearForm, j: number): void {
+    betBearForm.bears.splice(j,1);
   }
 
-  addBear(betBearForm: FormGroup): void {
-    const control = <FormArray>betBearForm.controls['bears'];
-    const bearCtrl = this.initBear();
-    control.push(bearCtrl);
+  save(teamBetBearForm: TeamBetBearForm): void {
+    teamBetBearForm.lastSaved = Date.now();
+    this.afService.submitForm(teamBetBearForm);
   }
 
-  removeBet(betBearForm: FormGroup, i: number) {
-      const control = <FormArray>betBearForm.controls['bets'];
-      control.removeAt(i);
-  }
-
-  removeBear(betBearForm: FormGroup, i: number) {
-      const control = <FormArray>betBearForm.controls['bears'];
-      control.removeAt(i);
-  }
-
-  save(model): void {
-    this.afService.uploadForm(model.value);
+  submit(teamBetBearForm: TeamBetBearForm): void {
+    teamBetBearForm.status = 1;
+    teamBetBearForm.lastSaved = Date.now();
+    this.afService.submitForm(teamBetBearForm);
   }
 }
