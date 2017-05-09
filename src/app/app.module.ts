@@ -14,7 +14,9 @@ import { AppComponent } from './app.component';
 import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
 import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-forms.component';
 import { LoginComponent } from './components/login/login';
+import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard';
 
+import { AuthGuard } from './authguard';
 import { AppRoutingModule }     from './app-routing.module';
 import { AppSecrets } from './secrets/app-secrets';
 
@@ -25,8 +27,8 @@ export const firebaseConfig = {
   projectId: "teamdynamics-7eb6e",
   storageBucket: "teamdynamics-7eb6e.appspot.com",
   messagingSenderId: AppSecrets.firebaseMessagingSenderId,
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
+  provider: AuthProviders.Google, 
+  method: AuthMethods.Popup
 };
 
 @NgModule({
@@ -34,7 +36,8 @@ export const firebaseConfig = {
     AppComponent,
     BetBearFormComponent,
     FacViewFormsComponent,
-    LoginComponent
+    LoginComponent,
+    StudentDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
-    AF
+    AF,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

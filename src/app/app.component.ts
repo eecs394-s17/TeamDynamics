@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-//import { AF } from '../Pages/firebase/firebase';
+import { Component, OnInit } from '@angular/core';
+import { AF } from './firebase/firebase';
 
 @Component({
   selector: 'app-root',

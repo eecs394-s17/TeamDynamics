@@ -1,7 +1,6 @@
 import { IndividualBetBearForm } from "./individual-bet-bear-form";
 
 export class TeamBetBearForm {
-  id: string;
   status: number;
   reviewerId: string;
   reviewerName: string;
@@ -9,7 +8,6 @@ export class TeamBetBearForm {
   lastSaved;
 
   constructor() {
-    this.id = '';
     this.status = 0;
     this.reviewerId = '';
     this.reviewerName = '';

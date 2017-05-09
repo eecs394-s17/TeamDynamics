@@ -8,6 +8,12 @@ import { TeamBetBearForm } from '../../classes/team-bet-bear-form';
 
 import { AF } from '../../firebase/firebase';
 
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/empty';
+
 @Component({
   selector: 'bet-bear-form',
   templateUrl: './bet-bear-form.component.html',
@@ -17,7 +23,7 @@ export class BetBearFormComponent implements OnInit {
   private teamMembers;
   private teamBetBearForm: TeamBetBearForm;
 
-  constructor (private afService: AF) {}
+  constructor (private afService: AF, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.teamMembers = [
@@ -25,11 +31,23 @@ export class BetBearFormComponent implements OnInit {
       {name: 'Joe', id: '1t234w'}
     ];
 
-    this.initWithEmptyForm();
+    console.log(this.route.params);
+    this.route.params
+      .switchMap((params: Params) => {
+        if (params['id']) {
+          console.log(1);
+          this.initWithForm(params['id']);
+        } else {
+          console.log(2);
+          this.initWithEmptyForm();
+        }
+        return Observable.empty();
+      })
     // this.initWithForm('-Kj_rVg7vx5PZrEUzOXl');
   }
 
   initWithForm(formId: string): void {
+    console.log(formId);
     this.afService.getForm(formId).subscribe(snapshot => {
       console.log(snapshot);
       this.teamBetBearForm = snapshot as TeamBetBearForm;
@@ -39,8 +57,8 @@ export class BetBearFormComponent implements OnInit {
 
   initWithEmptyForm(): void {
     this.teamBetBearForm = new TeamBetBearForm();
-    this.teamBetBearForm.reviewerName = 'alex';
-    this.teamBetBearForm.reviewerId = '123s';
+    this.teamBetBearForm.reviewerName = this.afService.currentUser.displayName;
+    this.teamBetBearForm.reviewerId = this.afService.currentUser.uid;
     this.teamBetBearForm.status = 0;
     for (var i = 0; i < this.teamMembers.length; i++) {
       this.teamBetBearForm.addIndividualBetBearForm(this.teamMembers[i].id, this.teamMembers[i].name, 2, 2);
