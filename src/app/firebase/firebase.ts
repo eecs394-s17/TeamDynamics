@@ -3,7 +3,6 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, AuthProv
 import { Observable } from 'rxjs/Observable';
 import { MdSnackBar } from '@angular/material';
 
-
 @Injectable()
 
 export class AF {
@@ -40,13 +39,13 @@ export class AF {
   }
 
   login(){
-    return this.af.auth.login({ 
+    return this.af.auth.login({
       provider: AuthProviders.Google,
       method: AuthMethods.Popup
     }).then(data => {
       console.log('success');
       console.log(data);
-      
+
       this.currentUser = data.auth;
       return Promise.resolve(true);
     }, err => {
@@ -55,9 +54,9 @@ export class AF {
     });
   }
 
-  logout(){
-    this.af.auth.logout();
+  logout(): Promise<any>{
     this.currentUser = null;
+    return this.af.auth.logout();
   }
 
   formsByUserId(userid: string): FirebaseListObservable<any> {

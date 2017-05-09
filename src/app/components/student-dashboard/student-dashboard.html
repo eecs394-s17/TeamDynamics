@@ -1,7 +1,10 @@
 <md-nav-list>
 	<md-list-item *ngFor="let form of userForms | async" (click)="openForm(form)">
 		<a md-line >Bet/Bear Form</a>
-		<p md-line *ngIf="form.status"> Submitted on {{ form.lastSaved | date }} </p>
-		<p md-line *ngIf="!form.status"> Not yet submitted </p>
+		<p md-line><span *ngIf="form.status">Submitted</span><span *ngIf="!form.status">Not yet submitted</span></p>
+		<p md-line *ngIf="form.lastSaved">Last saved on {{ form.lastSaved | date }} </p>
+	</md-list-item>
+	<md-list-item (click)="newForm()">
+		Start a new Bet/Bear form
 	</md-list-item>
 </md-nav-list>

@@ -12,12 +12,17 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'bet-bear-form',
+    component: BetBearFormComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'fac-view-forms',
     component: FacViewFormsComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'login-page', 
+    path: 'login-page',
     component: LoginComponent},
   {
     path: 'student-dashboard',
@@ -26,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/student-dashboard',
+    redirectTo: 'student-dashboard',
     pathMatch: 'full'
   },
 ]

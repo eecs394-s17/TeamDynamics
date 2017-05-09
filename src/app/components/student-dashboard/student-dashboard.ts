@@ -22,4 +22,8 @@ export class StudentDashboardComponent implements OnInit {
 	openForm(form) {
 		this.router.navigate(['/bet-bear-form', form.$key]);
 	}
+
+	newForm() {
+		this.router.navigate(['/bet-bear-form']);
+	}
 }

@@ -10,10 +10,6 @@ import { AF } from '../../firebase/firebase';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/empty';
-
 @Component({
   selector: 'bet-bear-form',
   templateUrl: './bet-bear-form.component.html',
@@ -31,17 +27,13 @@ export class BetBearFormComponent implements OnInit {
       {name: 'Joe', id: '1t234w'}
     ];
 
-    console.log(this.route.params);
     this.route.params
-      .switchMap((params: Params) => {
+      .subscribe(params => {
         if (params['id']) {
-          console.log(1);
           this.initWithForm(params['id']);
         } else {
-          console.log(2);
           this.initWithEmptyForm();
         }
-        return Observable.empty();
       })
     // this.initWithForm('-Kj_rVg7vx5PZrEUzOXl');
   }
