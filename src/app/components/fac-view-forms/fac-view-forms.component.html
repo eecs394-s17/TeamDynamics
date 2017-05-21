@@ -1,0 +1,52 @@
+<md-tab-group dynamic-height>
+  <md-tab *ngFor="let teamBetBearForm of forms | async" [label]='teamBetBearForm.reviewer'>
+    <md-tab-group dynamic-height>
+      <md-tab *ngFor="let betBearForm of teamBetBearForm.individualBetBearForms" [label]='betBearForm.reviewee'>
+
+        <md-card *ngFor="let bet of betBearForm.bets; let j = index">
+          <md-card-subtitle>
+            BET<span *ngIf="betBearForm.bets.length > 1"> {{j + 1}}</span>: {{betBearForm.reviewee}}
+          </md-card-subtitle>
+            <md-card-content>
+              <md-input-container class="full-width">
+                <textarea rows="5" disabled mdInput placeholder="Behavior">{{bet['behavior']}}</textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea rows="5" disabled mdInput placeholder="Effect">{{bet['effect']}}</textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <input mdInput disabled placeholder="Thank You" [value]="bet['thankYou']">
+              </md-input-container>
+            </md-card-content>
+        </md-card>
+
+        <md-card *ngFor="let bear of betBearForm.bears; let j = index">
+          <md-card-subtitle>
+            BEAR<span *ngIf="betBearForm.bears.length > 1"> {{j + 1}}</span>: {{betBearForm.reviewee}}
+          </md-card-subtitle>
+            <md-card-content>
+              <md-input-container class="full-width">
+                <textarea rows="5" disabled mdInput placeholder="Behavior">{{bear['behavior']}}</textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea rows="5" disabled mdInput placeholder="Effect">{{bear['effect']}}</textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea rows="5" disabled mdInput placeholder="Alternative">{{bear['alternative']}}</textarea>
+              </md-input-container>
+
+              <md-input-container class="full-width">
+                <textarea rows="5" disabled mdInput placeholder="Result">{{bear['result']}}</textarea>
+              </md-input-container>
+
+            </md-card-content>
+        </md-card>
+
+      </md-tab>
+    </md-tab-group>
+  </md-tab>
+</md-tab-group>
