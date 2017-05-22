@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload';
 
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+const URL = 'http://localhost:3000/post';
 
 @Component ({
   selector: 'app-create-assignment',
@@ -13,11 +13,11 @@ export class CreateAssignmentComponent {
   public uploader:FileUploader = new FileUploader({url:URL})
   public hasBaseDropZoneOver:boolean = false;
     public hasAnotherDropZoneOver:boolean = false;
- 
+
   public fileOverBase(e:any):void {
       this.hasBaseDropZoneOver = e;
    }
- 
+
   public fileOverAnother(e:any):void {
     this.hasAnotherDropZoneOver = e;
   }
@@ -35,5 +35,5 @@ export class CreateAssignmentComponent {
     console.log(this.uploader);
     //filereader.readAsDataURL(this.uploader);
   }
-  
+
 }
