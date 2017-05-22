@@ -13,4 +13,6 @@
 .header{
   color:#3f51b5;
 }
-
+body.modal-open div.modal-backdrop { 
+    z-index: 0; 
+}
