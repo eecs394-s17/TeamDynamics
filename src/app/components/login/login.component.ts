@@ -15,13 +15,6 @@ export class LoginComponent {
                 private snackbar: MdSnackBar){}
 
   login(){
-    this.usersService.login().then(loggedIn => {
-      if (loggedIn) {
-        this.router.navigate(['/']);
-      } else {
-        this.snackbar.open("Log In Unsuccessful");
-        setTimeout(_ => this.snackbar.dismiss(), 5000);
-      }
-    });
+    this.usersService.login();
   }
 }
