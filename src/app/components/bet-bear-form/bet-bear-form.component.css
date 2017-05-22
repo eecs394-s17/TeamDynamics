@@ -10,7 +10,12 @@
 .center{
   text-align:center;
 }
+.bold{
+	font-weight: bold;
+}
 .header{
   color:#3f51b5;
 }
-
+.title{
+	color:grey;
+}
