@@ -25,7 +25,6 @@ import { CreateAssignmentComponent } from './components/create-assignment/create
 import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-forms.component';
 import { LoginComponent } from './components/login/login.component';
 import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
-
 // TD Routing
 import { StudentGuard } from './guards/student.guard';
 import { ProfessorGuard } from './guards/professor.guard';
