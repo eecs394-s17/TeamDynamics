@@ -46,6 +46,6 @@ export class UsersService {
   }
 
   encodeKey(s) {
-    return encodeURIComponent(s).replace('.', '%2E');
+    return encodeURIComponent(s).split('.').join('%2e');
   }
 }
