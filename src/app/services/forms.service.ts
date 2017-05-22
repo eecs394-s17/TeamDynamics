@@ -9,7 +9,7 @@ import { UsersService } from './users.service';
 export class FormsService {
   constructor(  public db: AngularFireDatabase,
                 public usersService: UsersService,
-                private snackbar: MdSnackBar,) {
+                private snackbar: MdSnackBar) {
   }
 
   allForms(): FirebaseListObservable<any> {
