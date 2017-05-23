@@ -18,7 +18,7 @@ const forceSSL = function() {
   }
 }
 
-app.use(forceSSL());
+//app.use(forceSSL());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
