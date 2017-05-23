@@ -10,11 +10,15 @@ export class StudentGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.usersService.user){
-      return true;
-    }
-    else {
-      this.router.navigate(['/login-page']);
+    if (this.usersService.authState){
+      if (this.usersService.permission == 1) {
+        return true;
+      } else {
+        this.router.navigate(['/student/dashboard']);
+        return false;
+      }
+    } else {
+      this.router.navigate(['/login']);
       return false;
     }
   }

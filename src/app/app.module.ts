@@ -20,14 +20,15 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 // TD Components
 import { AppComponent } from './app.component';
-import { BetBearFormComponent } from './components/bet-bear-form/bet-bear-form.component';
-import { CreateAssignmentComponent } from './components/create-assignment/create-assignment.component';
-import { FacViewFormsComponent } from './components/fac-view-forms/fac-view-forms.component';
-import { LoginComponent } from './components/login/login.component';
-import { StudentDashboardComponent } from './components/student-dashboard/student-dashboard.component';
+import { LoginComponent } from './components/login/component';
+import { StudentBetBearFormComponent } from './components/student/bet-bear-form/component';
+import { StudentDashboardComponent } from './components/student/dashboard/component';
+import { InstructorCreateAssignmentComponent } from './components/instructor/create-assignment/component';
+import { InstructorViewFormsComponent } from './components/instructor/view-forms/component';
+
 // TD Routing
 import { StudentGuard } from './guards/student.guard';
-import { ProfessorGuard } from './guards/professor.guard';
+import { InstructorGuard } from './guards/instructor.guard';
 import { AppRoutingModule }     from './app-routing/app-routing.module';
 
 // TD Services
@@ -37,11 +38,11 @@ import { FormsService } from './services/forms.service';
 @NgModule({
   declarations: [
     AppComponent,
-    BetBearFormComponent,
-    CreateAssignmentComponent,
-    FacViewFormsComponent,
     LoginComponent,
-    StudentDashboardComponent
+    StudentBetBearFormComponent,
+    StudentDashboardComponent,
+    InstructorCreateAssignmentComponent,
+    InstructorViewFormsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +61,7 @@ import { FormsService } from './services/forms.service';
     UsersService,
     FormsService,
     StudentGuard,
-    ProfessorGuard
+    InstructorGuard
   ],
   bootstrap: [AppComponent]
 })

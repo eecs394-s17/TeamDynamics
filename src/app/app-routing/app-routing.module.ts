@@ -1,45 +1,51 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { StudentGuard } from '../guards/student.guard';
-import { ProfessorGuard } from '../guards/professor.guard';
-import { BetBearFormComponent } from '../components/bet-bear-form/bet-bear-form.component';
-import { CreateAssignmentComponent } from '../components/create-assignment/create-assignment.component';
-import { FacViewFormsComponent } from '../components/fac-view-forms/fac-view-forms.component';
-import { LoginComponent } from '../components/login/login.component';
-import { StudentDashboardComponent } from '../components/student-dashboard/student-dashboard.component';
+import { InstructorGuard } from '../guards/instructor.guard';
+
+import { LoginComponent } from '../components/login/component';
+
+import { StudentBetBearFormComponent } from '../components/student/bet-bear-form/component';
+import { StudentDashboardComponent } from '../components/student/dashboard/component';
+
+import { InstructorCreateAssignmentComponent } from '../components/instructor/create-assignment/component';
+import { InstructorViewFormsComponent } from '../components/instructor/view-forms/component';
 
 
 const routes: Routes = [
   {
-    path: 'bet-bear-form/:id',
-    component: BetBearFormComponent,
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'student/bet-bear-form/:id',
+    component: StudentBetBearFormComponent,
     canActivate: [StudentGuard]
   },
   {
-    path: 'bet-bear-form',
-    component: BetBearFormComponent,
+    path: 'student/bet-bear-form',
+    component: StudentBetBearFormComponent,
     canActivate: [StudentGuard]
   },
   {
-    path: 'fac-view-forms',
-    component: FacViewFormsComponent,
-    canActivate: [StudentGuard]
-  },
-  {
-    path: 'login-page',
-    component: LoginComponent},
-  {
-    path: 'student-dashboard',
+    path: 'student/dashboard',
     component: StudentDashboardComponent,
     canActivate: [StudentGuard]
   },
   {
-    path: 'create-assignment',
-    component: CreateAssignmentComponent
+    path: 'instructor/view-forms',
+    component: InstructorViewFormsComponent,
+    canActivate: [InstructorGuard]
+  },
+  {
+    path: 'instructor/create-assignment',
+    component: InstructorCreateAssignmentComponent,
+    canActivate: [InstructorGuard]
   },
   {
     path: '',
-    redirectTo: 'student-dashboard',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
 ]
