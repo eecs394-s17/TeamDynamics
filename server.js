@@ -6,6 +6,19 @@ const csv = require('fast-csv');
 const api = require('./server/routes/api');
 var firebase = require('./firebase.js');
 const app = express();
+
+const forceSSL = function() {
+  return function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(
+       ['https://', req.get('Host'), req.url].join('')
+      );
+    }
+    next();
+  }
+}
+
+app.use(forceSSL());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

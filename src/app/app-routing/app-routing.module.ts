@@ -8,6 +8,7 @@ import { FacViewFormsComponent } from '../components/fac-view-forms/fac-view-for
 import { LoginComponent } from '../components/login/login.component';
 import { StudentDashboardComponent } from '../components/student-dashboard/student-dashboard.component';
 
+
 const routes: Routes = [
   {
     path: 'bet-bear-form/:id',

@@ -1,6 +1,8 @@
 <md-card>
   <md-card-content>
-    <p class="center large-font">Please fill out the following BET/BEAR forms.</p>
+    <p class="center large-font bold">Design 384: Please fill out the following BET/BEAR forms.</p>
+    <p class="center small-font">Feel comfortale answering honestly and elaborating using examples.</p>
+  
 <!--     <md-list>
      <md-list-item> <b class="small-font">Due Date:</b> </md-list-item>
      <md-list-item> <b class="small-font"> Status:</b> </md-list-item>
@@ -12,20 +14,21 @@
   *ngFor="let betBearForm of teamBetBearForm?.individualBetBearForms" [label]="betBearForm.revieweeName" class="full-height">
       <md-card *ngFor="let bet of betBearForm.bets; let i = index">
         <md-card-subtitle>
-          <b class="large-font header"> BET<span *ngIf="betBearForm.bets?.length > 1"> {{i + 1}}</span> {{ bet.revieweeName }}</b>
+          <b class="large-font header"> BET<span *ngIf="betBearForm.bets?.length > 1"> {{i + 1}}</span> (positive feedback) {{ bet.revieweeName }}</b>
           <button md-icon-button *ngIf="betBearForm.bets?.length > 1" (click)="removeBet(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
         </md-card-subtitle>
         <md-card-content>
-          <md-input-container class="full-width">
-            <textarea [(ngModel)]="bet.behavior" rows="3" mdInput placeholder="B (behavior)"></textarea>
+          <label class="title bold">B (behavior)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bet.behavior" rows="3" mdInput placeholder="Example: Contributing your insights from previous design classes and your startup."> </textarea>
           </md-input-container>
-
-          <md-input-container class="full-width">
-            <textarea [(ngModel)]="bet.effect" rows="3" mdInput placeholder="E (effect)"></textarea>
+          <label class="title bold">E (effect)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bet.effect" rows="3" mdInput placeholder="Example: Giving us more strategies/design methods to apply to our project."></textarea>
           </md-input-container>
-
-          <md-input-container class="full-width">
-            <input [(ngModel)]="bet.thankYou" mdInput placeholder="T (thank you)">
+          <label class="title bold">T (thank you)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <input [(ngModel)]="bet.thankYou" mdInput placeholder="Example: Thank you!!!">
           </md-input-container>
         </md-card-content>
       </md-card>
@@ -34,24 +37,25 @@
 
       <md-card *ngFor="let bear of betBearForm.bears; let j = index">
         <md-card-subtitle>
-          <b class="large-font header">BEAR<span *ngIf="betBearForm.bears?.length > 1"> {{j + 1}}</span> {{bear.revieweeName}}</b>
+          <b class="large-font header">BEAR<span *ngIf="betBearForm.bears?.length > 1"> {{j + 1}}</span> (constructive feedback) {{bear.revieweeName}}</b>
           <button md-icon-button *ngIf="betBearForm.bears?.length > 1" (click)="removeBear(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
         </md-card-subtitle>
         <md-card-content>
-          <md-input-container class="full-width">
-            <textarea [(ngModel)]="bear.behavior" rows="3" mdInput placeholder="B (behavior)"></textarea>
+          <label class="title bold">B (behavior)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.behavior" rows="3" mdInput placeholder="Example: Too little participation during team meetings."></textarea>
           </md-input-container>
-
-          <md-input-container class="full-width">
-            <textarea [(ngModel)]="bear.effect" rows="3" mdInput placeholder="E (effect)"></textarea>
+          <label class="title bold">E (effect)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.effect" rows="3" mdInput placeholder="Example: Unequal participation during team meetings. "></textarea>
           </md-input-container>
-
-          <md-input-container class="full-width">
-            <textarea [(ngModel)]="bear.alternative" rows="3" mdInput placeholder="A (alternative)"></textarea>
+          <label class="title bold">A (alternative)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.alternative" rows="3" mdInput placeholder="Example: Bring up a design decision or insight that is important to you."></textarea>
           </md-input-container>
-
-          <md-input-container class="full-width">
-            <textarea [(ngModel)]="bear.result" rows="3" mdInput placeholder="R (result)"></textarea>
+          <label class="title bold">R (result)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.result" rows="3" mdInput placeholder="Example: Team meeting will feel much more cohesive, inclusive, and productive."></textarea>
           </md-input-container>
         </md-card-content>
       </md-card>
@@ -60,6 +64,6 @@
   </md-tab>
 </md-tab-group>
 
-<md-card class="no-pad margin-top-zero"><button md-raised-button color="accent" class="full-width" (click)="save(teamBetBearForm)"> Save </button></md-card>
-
 <md-card class="no-pad"><button  type="submit" md-raised-button color="primary" class="full-width" (click)="submit(teamBetBearForm)"> Submit </button></md-card>
+
+<md-card class="no-pad margin-top-zero"><button md-raised-button color="accent" class="full-width" (click)="save(teamBetBearForm)"> Save as draft</button></md-card>
