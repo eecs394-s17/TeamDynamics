@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 
-import { Bet } from '../../classes/bet';
-import { Bear } from '../../classes/bear';
-import { IndividualBetBearForm } from '../../classes/individual-bet-bear-form';
-import { TeamBetBearForm } from '../../classes/team-bet-bear-form';
+import { Bet } from '../../../classes/bet';
+import { Bear } from '../../../classes/bear';
+import { IndividualBetBearForm } from '../../../classes/individual-bet-bear-form';
+import { TeamBetBearForm } from '../../../classes/team-bet-bear-form';
 
-import { FormsService } from '../../services/forms.service';
-import { UsersService } from '../../services/users.service';
+import { FormsService } from '../../../services/forms.service';
+import { UsersService } from '../../../services/users.service';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -15,10 +15,10 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-bet-bear-form',
-  templateUrl: './bet-bear-form.component.html',
-  styleUrls: ['./bet-bear-form.component.css']
+  templateUrl: './component.html',
+  styleUrls: ['./component.css']
 })
-export class BetBearFormComponent implements OnInit {
+export class StudentBetBearFormComponent implements OnInit {
   private teamMembers;
   public teamBetBearForm: TeamBetBearForm;
 

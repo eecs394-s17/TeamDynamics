@@ -5,11 +5,11 @@ const URL = 'http://localhost:3000/post';
 
 @Component ({
   selector: 'app-create-assignment',
-  templateUrl: './create-assignment.component.html',
-  styleUrls: ['./create-assignment.component.css']
+  templateUrl: './component.html',
+  styleUrls: ['./component.css']
 })
 
-export class CreateAssignmentComponent {
+export class InstructorCreateAssignmentComponent {
   public uploader:FileUploader = new FileUploader({url:URL})
   public hasBaseDropZoneOver:boolean = false;
     public hasAnotherDropZoneOver:boolean = false;
@@ -21,8 +21,6 @@ export class CreateAssignmentComponent {
   public fileOverAnother(e:any):void {
     this.hasAnotherDropZoneOver = e;
   }
-
-
 
   constructor () {}
 

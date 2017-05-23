@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsService } from '../../services/forms.service';
-import { UsersService } from '../../services/users.service';
+import { FormsService } from '../../../services/forms.service';
+import { UsersService } from '../../../services/users.service';
 import { FirebaseListObservable } from 'angularfire2/database';
 
 import { Router } from '@angular/router';
@@ -9,8 +9,8 @@ import { Observable } from 'rxjs/Observable';
 
 @Component ({
   selector: 'app-student-dashboard',
-  templateUrl: './student-dashboard.component.html',
-  styleUrls: ['./student-dashboard.component.css']
+  templateUrl: './component.html',
+  styleUrls: ['./component.css']
 })
 
 export class StudentDashboardComponent implements OnInit {
@@ -27,10 +27,10 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   openForm(form) {
-    this.router.navigate(['/bet-bear-form', form.$key]);
+    this.router.navigate(['/student/bet-bear-form', form.$key]);
   }
 
   newForm() {
-    this.router.navigate(['/bet-bear-form']);
+    this.router.navigate(['/student/bet-bear-form']);
   }
 }

@@ -5,8 +5,8 @@ import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './component.html',
+  styleUrls: ['./component.css']
 })
 
 export class LoginComponent {

@@ -11,6 +11,7 @@ import { MdSnackBar } from '@angular/material';
 export class UsersService {
   public authState: Observable<firebase.User>;
   public user: FirebaseObjectObservable<any>;
+  public permission: number = 0;
 
   constructor(public afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
@@ -24,15 +25,25 @@ export class UsersService {
         this.user = this.db.object('/users/' + this.encodeKey(auth.email));
         this.user.subscribe((user) => {
           if (!user.$exists()) {
-            router.navigate(['/login-page']);
+            router.navigate(['/login']);
             this.snackbar.open("Oops, this user does not have an account yet! Ask your instructor for a new account.");
             setTimeout(_ => this.snackbar.dismiss(), 5000);
           } else {
-            router.navigate(['/student-dashboard']);
+            console.log(user);
+            this.permission = user.permission;
+            if (this.permission == 1) {
+              router.navigate(['/student/dashboard']);
+            } else if (this.permission == 2) {
+              router.navigate(['/instructor/dashboard']);
+            } else {
+              router.navigate(['/login']);
+              this.snackbar.open("Oops, this user does not the correct permissions!");
+              setTimeout(_ => this.snackbar.dismiss(), 5000);
+            }
           }
         });
       } else {
-        router.navigate(['/login-page']);
+        router.navigate(['/login']);
       }
     });
   }

@@ -1,13 +1,34 @@
 <md-sidenav-container>
     <md-sidenav #sidenav>
-      <md-nav-list>
-        <md-list-item (click)="goToRoute('student-dashboard'); sidenav.close()">
-           <a md-line>My Dashboard</a>
-        </md-list-item>
-        <md-list-item (click)="logout(); sidenav.close()">
-           <a md-line>Log Out</a>
-        </md-list-item>
-      </md-nav-list>
+
+      <ng-container *ngIf="usersService.permission == 1">
+        <md-nav-list>
+          <md-list-item (click)="goToRoute('/student/dashboard'); sidenav.close()">
+             <a md-line>My Dashboard</a>
+          </md-list-item>
+          <md-list-item (click)="logout(); sidenav.close()">
+             <a md-line>Log Out</a>
+          </md-list-item>
+        </md-nav-list>
+      </ng-container>
+
+      <ng-container *ngIf="usersService.permission == 2">
+        <md-nav-list>
+          <md-list-item (click)="goToRoute('/instructor/dashboard'); sidenav.close()">
+             <a md-line>My Dashboard</a>
+          </md-list-item>
+          <md-list-item (click)="goToRoute('/instructor/view-forms'); sidenav.close()">
+             <a md-line>View Forms</a>
+          </md-list-item>
+          <md-list-item (click)="goToRoute('/instructor/create-assignment'); sidenav.close()">
+             <a md-line>Create Assignment</a>
+          </md-list-item>
+          <md-list-item (click)="logout(); sidenav.close()">
+             <a md-line>Log Out</a>
+          </md-list-item>
+        </md-nav-list>
+      </ng-container>
+
     </md-sidenav>
     <div class="app-content">
       <md-toolbar color="primary">
