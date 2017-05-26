@@ -20,14 +20,22 @@ app.get('*', (req, res) => {
 
 app.all('/post', (req, res) => {
   var count = 0;
+  var students = [];
   req.pipe(csv())
   .on('error',function(err){
     console.error('error', err);
   })
   .on('data',function(data){
+    // console.log(data);
     count ++;
-    if(count > 5 && data.length > 1) firebase.CreateActivity(data);
-  });
+    if(count > 5 && data.length > 1){
+      students.push(data);
+      firebase.CreateStudents(data);
+    }
+  })
+  .on('end', _=> {
+    firebase.CreateActivity(students);
+  })
   res.send('test');
 });
 
