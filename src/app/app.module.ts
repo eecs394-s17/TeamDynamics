@@ -23,6 +23,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/component';
 import { StudentBetBearFormComponent } from './components/student/bet-bear-form/component';
 import { StudentDashboardComponent } from './components/student/dashboard/component';
+import { StudentFeedbackListComponent } from './components/student/feedback-list/component';
+import { StudentFeedbackComponent } from './components/student/feedback/component';
 import { InstructorCreateAssignmentComponent } from './components/instructor/create-assignment/component';
 import { InstructorViewFormsComponent } from './components/instructor/view-forms/component';
 
@@ -41,6 +43,8 @@ import { FormsService } from './services/forms.service';
     LoginComponent,
     StudentBetBearFormComponent,
     StudentDashboardComponent,
+    StudentFeedbackListComponent,
+    StudentFeedbackComponent,
     InstructorCreateAssignmentComponent,
     InstructorViewFormsComponent
   ],

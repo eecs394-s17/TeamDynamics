@@ -8,6 +8,8 @@ import { LoginComponent } from '../components/login/component';
 
 import { StudentBetBearFormComponent } from '../components/student/bet-bear-form/component';
 import { StudentDashboardComponent } from '../components/student/dashboard/component';
+import { StudentFeedbackListComponent } from '../components/student/feedback-list/component';
+import { StudentFeedbackComponent } from '../components/student/feedback/component';
 
 import { InstructorCreateAssignmentComponent } from '../components/instructor/create-assignment/component';
 import { InstructorViewFormsComponent } from '../components/instructor/view-forms/component';
@@ -31,6 +33,16 @@ const routes: Routes = [
   {
     path: 'student/dashboard',
     component: StudentDashboardComponent,
+    canActivate: [StudentGuard]
+  },
+  {
+    path: 'student/feedback-list',
+    component: StudentFeedbackListComponent,
+    canActivate: [StudentGuard]
+  },
+  {
+    path: 'student/feedback',
+    component: StudentFeedbackComponent,
     canActivate: [StudentGuard]
   },
   {

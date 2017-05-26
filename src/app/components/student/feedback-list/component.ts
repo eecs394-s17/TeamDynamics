@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 @Component ({
-  selector: 'app-student-dashboard',
+  selector: 'app-student-feedback-list',
   templateUrl: './component.html',
   styleUrls: ['./component.css']
 })
 
-export class StudentDashboardComponent implements OnInit {
-  public userForms: FirebaseListObservable<any>;
+export class StudentFeedbackListComponent implements OnInit {
+  public feedbackForms: FirebaseListObservable<any>;
 
   constructor (public usersService: UsersService,
     public formsService: FormsService,
@@ -22,18 +22,11 @@ export class StudentDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.user.subscribe(snapshot => {
-      this.userForms = this.formsService.formsByUserId(snapshot.uid);
+      this.feedbackForms = this.formsService.formsByUserId(snapshot.uid);
     });
   }
 
-  openForm(form) {
-    this.router.navigate(['/student/bet-bear-form', form.$key]);
-  }
-
-  newForm() {
-    this.router.navigate(['/student/bet-bear-form']);
-  }
-  viewFeedback() {
-    this.router.navigate(['/student/feedback-list']);
+  openFeedback() {
+    this.router.navigate(['/student/feedback']);
   }
 }
