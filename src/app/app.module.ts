@@ -37,6 +37,8 @@ import { AppRoutingModule }     from './app-routing/app-routing.module';
 // TD Services
 import { UsersService } from './services/users.service';
 import { FormsService } from './services/forms.service';
+import { AssignmentsService } from './services/assignments.service';
+import { FeedbackService } from './services/feedback.service';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { FormsService } from './services/forms.service';
   providers: [
     UsersService,
     FormsService,
+    AssignmentsService,
+    FeedbackService,
     StudentGuard,
     InstructorGuard
   ],

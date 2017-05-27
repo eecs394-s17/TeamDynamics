@@ -1,17 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormsModule }   from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FirebaseObjectObservable } from 'angularfire2/database';
 
-import { Bet } from '../../../classes/bet';
-import { Bear } from '../../../classes/bear';
-import { IndividualBetBearForm } from '../../../classes/individual-bet-bear-form';
 import { TeamBetBearForm } from '../../../classes/team-bet-bear-form';
 
 import { FormsService } from '../../../services/forms.service';
-import { UsersService } from '../../../services/users.service';
-
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { Observable } from 'rxjs/Observable';
+import { FeedbackService } from '../../../services/feedback.service';
 
 @Component({
   selector: 'app-instructor-review-form',
@@ -20,9 +15,10 @@ import { Observable } from 'rxjs/Observable';
 })
 export class InstructorReviewFormComponent implements OnInit {
   public teamBetBearForm: TeamBetBearForm;
+  public formObservable: FirebaseObjectObservable<any>;
 
   constructor (private formsService: FormsService,
-    private usersService: UsersService,
+    private feedbackService: FeedbackService,
     private route: ActivatedRoute,
     private router: Router) {}
 
@@ -34,8 +30,23 @@ export class InstructorReviewFormComponent implements OnInit {
   }
 
   initWithForm(formId: string): void {
-    this.formsService.getForm(formId).first().subscribe(snapshot => {
+    this.formObservable = this.formsService.getForm(formId)
+    this.formObservable.first().subscribe(snapshot => {
       this.teamBetBearForm = snapshot as TeamBetBearForm;
+    });
+  }
+
+  releaseBet(bet): void {
+    this.feedbackService.releaseBet(this.teamBetBearForm.assignmentId, bet); 
+  }
+
+  releaseBear(bear): void {
+    this.feedbackService.releaseBear(this.teamBetBearForm.assignmentId, bear);
+  }
+
+  markAsReviewed(): void {
+    this.formObservable.update({
+      'status': 2
     });
   }
 }

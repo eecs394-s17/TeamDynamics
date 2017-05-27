@@ -7,14 +7,15 @@ import { UsersService } from '../services/users.service';
 export class InstructorGuard implements CanActivate {
   constructor(private router: Router, private usersService: UsersService) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.usersService.authState){
+  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.usersService.permission > 0){
       if (this.usersService.permission == 2) {
         return true;
+      } else if (this.usersService.permission == 1) {
+        this.router.navigate(['/student/dashboard']);
+        return false;
       } else {
-        this.router.navigate(['/instructor/dashboard']);
+        this.router.navigate(['/login']);
         return false;
       }
     } else {
