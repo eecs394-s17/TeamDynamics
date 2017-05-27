@@ -21,8 +21,8 @@ export class StudentDashboardComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit(): void {
-    this.usersService.user.subscribe(snapshot => {
-      this.userForms = this.formsService.formsByUserId(snapshot.uid);
+    this.usersService.user.first().subscribe(snapshot => {
+      this.userForms = this.formsService.formsByUserId(snapshot.$key);
     });
   }
 
@@ -30,9 +30,6 @@ export class StudentDashboardComponent implements OnInit {
     this.router.navigate(['/student/bet-bear-form', form.$key]);
   }
 
-  newForm() {
-    this.router.navigate(['/student/bet-bear-form']);
-  }
   viewFeedback() {
     this.router.navigate(['/student/feedback-list']);
   }

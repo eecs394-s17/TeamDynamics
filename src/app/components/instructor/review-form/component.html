@@ -1,21 +1,9 @@
-<md-card>
-  <md-card-content>
-    <p class="center large-font bold">Design 384: Please fill out the following BET/BEAR forms.</p>
-    <p class="center small-font">Feel comfortale answering honestly and elaborating using examples.</p>
-  
-<!--     <md-list>
-     <md-list-item> <b class="small-font">Due Date:</b> </md-list-item>
-     <md-list-item> <b class="small-font"> Status:</b> </md-list-item>
-    </md-list> -->
-  </md-card-content>
-</md-card>
 <md-tab-group dynamic-height>
   <md-tab
   *ngFor="let betBearForm of teamBetBearForm?.individualBetBearForms" [label]="betBearForm.revieweeName" class="full-height">
       <md-card *ngFor="let bet of betBearForm.bets; let i = index">
         <md-card-subtitle>
           <b class="large-font header"> BET<span *ngIf="betBearForm.bets?.length > 1"> {{i + 1}}</span> (positive feedback) {{ betBearForm.revieweeName }}</b>
-          <button md-icon-button *ngIf="betBearForm.bets?.length > 1" (click)="removeBet(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
         </md-card-subtitle>
         <md-card-content>
           <label class="title bold">B (behavior)</label>
@@ -30,15 +18,14 @@
           <md-input-container class="full-width" floatPlaceholder="never">
             <input [(ngModel)]="bet.thankYou" mdInput placeholder="Example: Thank you!!!">
           </md-input-container>
+
+          <button  md-button color="primary" class="full-width">Release this BET to {{betBearForm.revieweeName}}</button>
         </md-card-content>
       </md-card>
-
-      <md-card class="no-pad" *ngIf="betBearForm.bets?.length != 4"><button  (click)="addBet(betBearForm)" md-button color="primary" class="full-width"> Add a BET for {{ betBearForm.revieweeName }}</button></md-card>
 
       <md-card *ngFor="let bear of betBearForm.bears; let j = index">
         <md-card-subtitle>
           <b class="large-font header">BEAR<span *ngIf="betBearForm.bears?.length > 1"> {{j + 1}}</span> (constructive feedback) {{betBearForm.revieweeName}}</b>
-          <button md-icon-button *ngIf="betBearForm.bears?.length > 1" (click)="removeBear(betBearForm, j)" style='float:right'><md-icon>close</md-icon></button>
         </md-card-subtitle>
         <md-card-content>
           <label class="title bold">B (behavior)</label>
@@ -57,13 +44,9 @@
           <md-input-container class="full-width" floatPlaceholder="never">
             <textarea [(ngModel)]="bear.result" rows="3" mdInput placeholder="Example: Team meeting will feel much more cohesive, inclusive, and productive."></textarea>
           </md-input-container>
+
+          <button md-button color="primary" class="full-width">Release this BEAR to {{betBearForm.revieweeName}}</button>
         </md-card-content>
       </md-card>
-
-      <md-card class="no-pad" *ngIf="betBearForm.bears?.length != 4"><button  (click)="addBear(betBearForm)" md-button color="primary" class="full-width"> Add a BEAR for {{ betBearForm.revieweeName }}</button></md-card>
   </md-tab>
 </md-tab-group>
-
-<md-card class="no-pad margin-top-zero"><button md-raised-button color="accent" class="full-width" (click)="save(teamBetBearForm)"> Save as draft</button></md-card>
-
-<md-card class="no-pad"><button  type="submit" md-raised-button color="primary" class="full-width" (click)="submit(teamBetBearForm)"> Submit </button></md-card>

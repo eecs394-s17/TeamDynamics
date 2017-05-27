@@ -1,0 +1,13 @@
+<md-nav-list>
+  <md-card>
+    <md-card-content>
+      <md-list-item *ngFor="let form of forms | async" (click)="openForm(form)">
+        <a md-line >{{form.reviewerName}} BET/BEAR Form</a>
+        <span *ngIf="!form.status == 2">Reviewed</span>
+        <span *ngIf="form.status == 1">Submitted, ready for review</span>
+        <p md-line><span *ngIf="form.status == 0">Not yet submitted</span>
+        </p>
+      </md-list-item>
+    </md-card-content>
+  </md-card>
+</md-nav-list>

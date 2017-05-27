@@ -26,7 +26,8 @@ import { StudentDashboardComponent } from './components/student/dashboard/compon
 import { StudentFeedbackListComponent } from './components/student/feedback-list/component';
 import { StudentFeedbackComponent } from './components/student/feedback/component';
 import { InstructorCreateAssignmentComponent } from './components/instructor/create-assignment/component';
-import { InstructorViewFormsComponent } from './components/instructor/view-forms/component';
+import { InstructorReviewFormComponent } from './components/instructor/review-form/component';
+import { InstructorDashboardComponent } from './components/instructor/dashboard/component';
 
 // TD Routing
 import { StudentGuard } from './guards/student.guard';
@@ -46,7 +47,8 @@ import { FormsService } from './services/forms.service';
     StudentFeedbackListComponent,
     StudentFeedbackComponent,
     InstructorCreateAssignmentComponent,
-    InstructorViewFormsComponent
+    InstructorReviewFormComponent,
+    InstructorDashboardComponent
   ],
   imports: [
     BrowserModule,

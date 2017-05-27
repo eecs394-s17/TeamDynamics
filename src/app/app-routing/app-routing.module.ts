@@ -12,8 +12,8 @@ import { StudentFeedbackListComponent } from '../components/student/feedback-lis
 import { StudentFeedbackComponent } from '../components/student/feedback/component';
 
 import { InstructorCreateAssignmentComponent } from '../components/instructor/create-assignment/component';
-import { InstructorViewFormsComponent } from '../components/instructor/view-forms/component';
-
+import { InstructorReviewFormComponent } from '../components/instructor/review-form/component';
+import { InstructorDashboardComponent } from '../components/instructor/dashboard/component';
 
 const routes: Routes = [
   {
@@ -22,11 +22,6 @@ const routes: Routes = [
   },
   {
     path: 'student/bet-bear-form/:id',
-    component: StudentBetBearFormComponent,
-    canActivate: [StudentGuard]
-  },
-  {
-    path: 'student/bet-bear-form',
     component: StudentBetBearFormComponent,
     canActivate: [StudentGuard]
   },
@@ -45,9 +40,14 @@ const routes: Routes = [
     component: StudentFeedbackComponent,
     canActivate: [StudentGuard]
   },
+    {
+    path: 'instructor/dashboard',
+    component: InstructorDashboardComponent,
+    canActivate: [InstructorGuard]
+  },
   {
-    path: 'instructor/view-forms',
-    component: InstructorViewFormsComponent,
+    path: 'instructor/review-form/:id',
+    component: InstructorReviewFormComponent,
     canActivate: [InstructorGuard]
   },
   {
