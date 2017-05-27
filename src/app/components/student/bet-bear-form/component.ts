@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FirebaseObjectObservable } from 'angularfire2/database';
@@ -10,7 +10,6 @@ import { IndividualBetBearForm } from '../../../classes/individual-bet-bear-form
 import { TeamBetBearForm } from '../../../classes/team-bet-bear-form';
 
 import { FormsService } from '../../../services/forms.service';
-import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-bet-bear-form',
@@ -22,7 +21,6 @@ export class StudentBetBearFormComponent implements OnInit {
   public formObservable: FirebaseObjectObservable<any>;
 
   constructor (private formsService: FormsService,
-    private usersService: UsersService,
     private route: ActivatedRoute,
     private router: Router,
     private snackbar: MdSnackBar) {}
@@ -68,6 +66,7 @@ export class StudentBetBearFormComponent implements OnInit {
   }
 
   submit(): void {
+    this.cleanForm();
     this.teamBetBearForm.status = 1;
     this.teamBetBearForm.lastSaved = Date.now();
     this.formObservable.update(this.teamBetBearForm).then(success => {
@@ -77,5 +76,25 @@ export class StudentBetBearFormComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  cleanForm(): void {
+    // for each teammate
+    for (var s = 0; s < this.teamBetBearForm.individualBetBearForms.length; s++) {
+      var iform = this.teamBetBearForm.individualBetBearForms[s];
+      for (var b = iform.bets.length - 1; b >= 0; b--) {
+        var bet = iform.bets[b];
+        if (!bet.behavior && !bet.effect && !bet.thankYou && iform.bets.length > 1) {
+          iform.bets.splice(b,1);
+        }
+      }
+      for (var b = iform.bears.length - 1; b >= 0; b--) {
+        var bear = iform.bears[b];
+        if (!bear.behavior && !bear.effect && !bear.alternative && !bear.result && iform.bears.length > 1) {
+          iform.bears.splice(b,1);
+        }
+      }      
+      this.teamBetBearForm.individualBetBearForms[s] = iform;
+    }
   }
 }

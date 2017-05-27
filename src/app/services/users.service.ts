@@ -12,6 +12,7 @@ export class UsersService {
   public authState: Observable<firebase.User>;
   public user: FirebaseObjectObservable<any>;
   public permission: number = 0;
+  public userId: string = '';
 
   constructor(public afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
@@ -31,6 +32,7 @@ export class UsersService {
           } else {
             console.log(user);
             this.permission = user.permission;
+            this.userId = user.$key;
             if (this.permission == 1) {
               router.navigate(['/student/dashboard']);
             } else if (this.permission == 2) {

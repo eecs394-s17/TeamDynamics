@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsService } from '../../../services/forms.service';
+import { AssignmentsService } from '../../../services/assignments.service';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { Router } from '@angular/router';
 
@@ -10,13 +11,29 @@ import { Router } from '@angular/router';
 })
 export class InstructorDashboardComponent implements OnInit {
 
-  public forms: FirebaseListObservable<any>
+  public forms;
+  public assignments;
+
   constructor (public formsService: FormsService,
+    public assignmentsService: AssignmentsService,
     public router: Router) {}
 
   ngOnInit(): void {
-    this.forms = this.formsService.allForms();
-  }
+
+    this.assignmentsService.allAssignments().first().subscribe(snapshot => {
+      this.assignments = snapshot.reverse();
+      console.log(this.assignments);
+    });
+
+    this.formsService.allForms().first().subscribe(snapshot => {
+      this.forms = {};
+      for (var i = 0; i < snapshot.length; i++) {
+        let key = snapshot[i].$key;
+        this.forms[key] = snapshot[i];
+      }
+      console.log(this.forms);
+    });
+  };
 
   openForm(form) {
     this.router.navigate(['/instructor/review-form', form.$key]);

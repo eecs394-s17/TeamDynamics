@@ -1,3 +1,13 @@
+<md-card>
+  <md-card-content>
+    <p class="center large-font bold">{{teamBetBearForm?.reviewerName}}: {{teamBetBearForm?.assignmentName}}</p>
+    <p class="center small-font">
+      <span *ngIf="teamBetBearForm?.status == 2">Reviewed</span>
+      <span *ngIf="teamBetBearForm?.status == 1">Submitted, ready for review</span>
+      <span *ngIf="teamBetBearForm?.status == 0">Not yet submitted</span>
+    </p>
+  </md-card-content>
+</md-card>
 <md-tab-group dynamic-height>
   <md-tab
   *ngFor="let betBearForm of teamBetBearForm?.individualBetBearForms" [label]="betBearForm.revieweeName" class="full-height">
@@ -8,18 +18,18 @@
         <md-card-content>
           <label class="title bold">B (behavior)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <textarea [(ngModel)]="bet.behavior" rows="3" mdInput placeholder="Example: Contributing your insights from previous design classes and your startup."> </textarea>
+            <textarea [(ngModel)]="bet.behavior" rows="3" mdInput disabled> </textarea>
           </md-input-container>
           <label class="title bold">E (effect)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <textarea [(ngModel)]="bet.effect" rows="3" mdInput placeholder="Example: Giving us more strategies/design methods to apply to our project."></textarea>
+            <textarea [(ngModel)]="bet.effect" rows="3" mdInput  disabled></textarea>
           </md-input-container>
           <label class="title bold">T (thank you)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <input [(ngModel)]="bet.thankYou" mdInput placeholder="Example: Thank you!!!">
+            <input [(ngModel)]="bet.thankYou" mdInput disabled>
           </md-input-container>
 
-          <button  md-button color="primary" class="full-width">Release this BET to {{betBearForm.revieweeName}}</button>
+          <button  (click)="releaseBet(bet)" md-button color="primary" class="full-width">Release this BET to {{betBearForm.revieweeName}}</button>
         </md-card-content>
       </md-card>
 
@@ -30,23 +40,25 @@
         <md-card-content>
           <label class="title bold">B (behavior)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <textarea [(ngModel)]="bear.behavior" rows="3" mdInput placeholder="Example: Too little participation during team meetings."></textarea>
+            <textarea [(ngModel)]="bear.behavior" rows="3" mdInput disabled></textarea>
           </md-input-container>
           <label class="title bold">E (effect)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <textarea [(ngModel)]="bear.effect" rows="3" mdInput placeholder="Example: Unequal participation during team meetings. "></textarea>
+            <textarea [(ngModel)]="bear.effect" rows="3" mdInput disabled></textarea>
           </md-input-container>
           <label class="title bold">A (alternative)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <textarea [(ngModel)]="bear.alternative" rows="3" mdInput placeholder="Example: Bring up a design decision or insight that is important to you."></textarea>
+            <textarea [(ngModel)]="bear.alternative" rows="3" mdInput disabled></textarea>
           </md-input-container>
           <label class="title bold">R (result)</label>
           <md-input-container class="full-width" floatPlaceholder="never">
-            <textarea [(ngModel)]="bear.result" rows="3" mdInput placeholder="Example: Team meeting will feel much more cohesive, inclusive, and productive."></textarea>
+            <textarea [(ngModel)]="bear.result" rows="3" mdInput disabled></textarea>
           </md-input-container>
 
-          <button md-button color="primary" class="full-width">Release this BEAR to {{betBearForm.revieweeName}}</button>
+          <button (click)="releaseBet(bear)" md-button color="primary" class="full-width">Release this BEAR to {{betBearForm.revieweeName}}</button>
         </md-card-content>
       </md-card>
   </md-tab>
 </md-tab-group>
+
+<md-card class="no-pad margin-top-zero"><button md-raised-button color="accent" class="full-width" (click)="markAsReviewed()">Mark review as completed</button></md-card>
