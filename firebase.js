@@ -10,18 +10,16 @@ var apiKey = {
 firebase.initializeApp(apiKey);
 
 
-exports.showvalue = function(){
-  var db = firebase.app().database().ref('/users');
-  db.once('value').then((snap) => {
-   console.log(snap.val());
-  });
-};
-
 exports.CreateActivity = function(students){
   console.log('in create activity');
   console.log(students);
   var teams = {};
-  for (var i = 0; i < students.length; i++) {
+  var uniqueIds = [];
+  sdate = students[0][1];
+  console.log(sdate);
+  edate = students[0][2];
+  assignmentname = students[0][0];
+  for (var i = 2; i < students.length; i++) {
     var teamKey = students[i][3];
     if (teams.hasOwnProperty(teamKey)) {
         teams[teamKey].push(students[i]);
@@ -38,7 +36,11 @@ exports.CreateActivity = function(students){
           'status': 0,
           'reviewerName': team[i][1],
           'reviewerId': emailKey(team[i][2]),
-          'individualBetBearForms': []
+          'individualBetBearForms': [],
+          'startDate' : sdate,
+          'endDate' : edate,
+          'assignmentName' : assignmentname,
+          'assignmentId' : ''
         };
         for (var j = 0; j < team.length; j++) {
           if (i == j) {
@@ -53,11 +55,54 @@ exports.CreateActivity = function(students){
             form.individualBetBearForms.push(individualForm);
           }
         }
-        db.push(form);
+        var ref = db.push(form);
+        uniqueIds.push(ref.getKey());
       }
     }
   }
+  var assignment = {
+    'name' : assignmentname,
+    'startDate' : sdate,
+    'endDate' : edate,
+    'forms' : uniqueIds
+  };
+  assignmentid = CreateAssignment(assignment);
+  UpdateAssignmentId(assignmentid, uniqueIds);
+  for(var i = 2; i < students.length; i ++){
+    var key = emailKey(students[i][2]);
+    CreateFeedback(key, assignmentid, assignmentname);
+  }
+
 };
+
+function CreateAssignment(assignment){
+  var db = firebase.app().database().ref('/assignments/');
+  var ref = db.push(assignment);
+  return ref.getKey();
+}
+
+function UpdateAssignmentId(assignmentid, ids){
+  for(var i = 0; i < ids.length; i ++){
+    var db = firebase.app().database().ref('/forms/' + ids[i]);
+    var temp = {};
+    db.once('value').then((data) => {
+      temp = data.val();
+    });
+    temp.assignmentId = assignmentid;
+    db.update(temp);
+  }
+}
+
+function CreateFeedback(userId, assignmentid, assignmentname){
+  var db = firebase.app().database().ref('/feedback/' + userId + '/' + assignmentid);
+  var feedback = {
+      'assignmentName' : assignmentname,
+      'bets' : [],
+      'bears' : []
+  };
+  db.set(feedback);
+}
+
 
 exports.CreateStudents = function(data) {
     var key = emailKey(data[2]);

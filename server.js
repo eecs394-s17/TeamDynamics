@@ -26,16 +26,15 @@ app.all('/post', (req, res) => {
     console.error('error', err);
   })
   .on('data',function(data){
-    // console.log(data);
     count ++;
-    if(count > 5 && data.length > 1){
-      students.push(data);
+    if(count > 5 && data.length > 1) students.push(data);
+    if(count > 7 && data.length > 1){
       firebase.CreateStudents(data);
     }
   })
   .on('end', _=> {
     firebase.CreateActivity(students);
-  })
+   });
   res.send('test');
 });
 

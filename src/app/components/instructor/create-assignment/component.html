@@ -1,27 +1,30 @@
 <button md-button (click)="fileread()">Read CSV File</button>
 
+
+
+
 <style>
     .my-drop-zone { border: dotted 3px lightgray; }
     .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
     .another-file-over-class { border: dotted 3px green; }
- 
+
     html, body { height: 100%; }
 </style>
- 
+
 <div class="container">
- 
+
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand" href>Angular2 File Upload</a>
         </div>
     </div>
- 
+
     <div class="row">
- 
+
         <div class="col-md-3">
- 
+
             <h3>Select files</h3>
- 
+
             <div ng2FileDrop
                  [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
                  (fileOver)="fileOverBase($event)"
@@ -29,7 +32,7 @@
                  class="well my-drop-zone">
                 Base drop zone
             </div>
- 
+
             <div ng2FileDrop
                  [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
                  (fileOver)="fileOverAnother($event)"
@@ -37,19 +40,21 @@
                  class="well my-drop-zone">
                 Another drop zone
             </div>
- 
+
             Multiple
             <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
- 
+
             Single
             <input type="file" ng2FileSelect [uploader]="uploader" />
+
+
         </div>
- 
+
         <div class="col-md-9" style="margin-bottom: 40px">
- 
+
             <h3>Upload queue</h3>
             <p>Queue length: {{ uploader?.queue?.length }}</p>
- 
+
             <table class="table">
                 <thead>
                 <tr>
@@ -91,7 +96,7 @@
                 </tr>
                 </tbody>
             </table>
- 
+
             <div>
                 <div>
                     Queue progress:
@@ -112,9 +117,9 @@
                     <span class="glyphicon glyphicon-trash"></span> Remove all
                 </button>
             </div>
- 
+
         </div>
- 
+
     </div>
- 
+
 </div>
