@@ -17,6 +17,17 @@ app.use('/api', api);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
+// app.get('/download', (req, res) => {
+//   firebase.GetInfo((snapshot) => {
+//       var data = csv.createWriteStream("test.csv");
+//       csv
+//       .write(snapshot)
+//       .pipe(data);
+//       console.log(data);
+//       res.send(snapshot);
+//   });
+//
+// });
 
 app.all('/post', (req, res) => {
   var count = 0;

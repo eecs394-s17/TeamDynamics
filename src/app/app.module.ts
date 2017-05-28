@@ -17,7 +17,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 //// File upload
 import { FileUploadModule } from 'ng2-file-upload';
-
 // TD Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/component';

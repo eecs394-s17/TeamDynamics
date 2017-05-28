@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsService } from '../../../services/forms.service';
+import { FeedbackService } from '../../../services/feedback.service';
 import { UsersService } from '../../../services/users.service';
 import { FirebaseListObservable } from 'angularfire2/database';
-
 import { Router } from '@angular/router';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component ({
   selector: 'app-student-dashboard',
@@ -13,10 +14,12 @@ import { Router } from '@angular/router';
 
 export class StudentDashboardComponent implements OnInit {
   public userForms;
-
+  public download;
   constructor (public usersService: UsersService,
     public formsService: FormsService,
-    private router: Router) {}
+    public feedService : FeedbackService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.formsService.formsByUserId(this.usersService.userId).first().subscribe(snapshot => {
@@ -27,6 +30,15 @@ export class StudentDashboardComponent implements OnInit {
     })
   }
 
+  downloadCsv(){
+    this.feedService.getFeedBack(this.usersService.userId).subscribe((snapshot) => {
+        //this.csvformat(snapshot);
+        console.log(snapshot);
+        new Angular2Csv(snapshot, this.usersService.userId);
+    });
+
+  }
+
   openForm(form) {
     this.router.navigate(['/student/bet-bear-form', form.$key]);
   }
@@ -34,4 +46,5 @@ export class StudentDashboardComponent implements OnInit {
   viewFeedback() {
     this.router.navigate(['/student/feedback-list']);
   }
+
 }
