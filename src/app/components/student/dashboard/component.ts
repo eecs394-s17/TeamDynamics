@@ -21,7 +21,7 @@ export class StudentDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.formsService.formsByUserId(this.usersService.userId).first().subscribe(snapshot => {
       snapshot.sort((a,b) => {
-        return a.endDate - b.endDate;
+        return b.endDate - a.endDate;
       });
       this.userForms = snapshot;
     })

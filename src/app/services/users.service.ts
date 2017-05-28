@@ -39,6 +39,7 @@ export class UsersService {
               router.navigate(['/instructor/dashboard']);
             } else {
               router.navigate(['/login']);
+              this.afAuth.auth.signOut();
               this.snackbar.open("Oops, this user does not the correct permissions!");
               setTimeout(_ => this.snackbar.dismiss(), 5000);
             }

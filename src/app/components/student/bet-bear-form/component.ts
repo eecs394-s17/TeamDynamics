@@ -75,6 +75,8 @@ export class StudentBetBearFormComponent implements OnInit {
       setTimeout(_ => this.snackbar.dismiss(), 5000);
     }, error => {
       console.log(error);
+      this.snackbar.open("Oops, something went wrong.");
+      setTimeout(_ => this.snackbar.dismiss(), 5000);
     });
   }
 

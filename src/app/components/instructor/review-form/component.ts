@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FirebaseObjectObservable } from 'angularfire2/database';
+import { MdSnackBar } from '@angular/material';
 
 import { TeamBetBearForm } from '../../../classes/team-bet-bear-form';
 
@@ -20,7 +21,8 @@ export class InstructorReviewFormComponent implements OnInit {
   constructor (private formsService: FormsService,
     private feedbackService: FeedbackService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private snackbar: MdSnackBar) {}
 
   ngOnInit(): void {
     this.route.params
@@ -36,17 +38,34 @@ export class InstructorReviewFormComponent implements OnInit {
     });
   }
 
-  releaseBet(bet): void {
-    this.feedbackService.releaseBet(this.teamBetBearForm.assignmentId, bet); 
-  }
-
-  releaseBear(bear): void {
-    this.feedbackService.releaseBear(this.teamBetBearForm.assignmentId, bear);
-  }
-
-  markAsReviewed(): void {
-    this.formObservable.update({
-      'status': 2
+  completeReview(): void {
+    var promises = [];
+    var assignmentId = this.teamBetBearForm.assignmentId;
+    this.teamBetBearForm.status = 2;
+    promises.push(this.formObservable.update(this.teamBetBearForm));
+    for (var s = 0; s < this.teamBetBearForm.individualBetBearForms.length; s++) {
+      var iform = this.teamBetBearForm.individualBetBearForms[s];
+      var revieweeId = iform.revieweeId;
+      for (var b = 0; b < iform.bets.length; b++) {
+        if (iform.bets[b].released) {
+          promises.push(this.feedbackService.releaseBet(assignmentId, revieweeId, iform.bets[b]));
+        }
+      }
+      for (var b = 0; b < iform.bears.length; b++) {
+        if (iform.bears[b].released) {
+          promises.push(this.feedbackService.releaseBear(assignmentId, revieweeId, iform.bears[b]));
+        }
+      }
+    }
+    Promise.all(promises).then(success => {
+      this.router.navigate(['/instructor/dashboard']);
+      this.snackbar.open("Feedback released successfully!");
+      setTimeout(_ => this.snackbar.dismiss(), 5000);
+    }, error => {
+      console.log(error);
+      this.snackbar.open("Oops, something went wrong.");
+      setTimeout(_ => this.snackbar.dismiss(), 5000);
     });
   }
+
 }

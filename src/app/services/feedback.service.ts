@@ -7,11 +7,11 @@ export class FeedbackService {
   constructor(public db: AngularFireDatabase) {
   }
 
-  releaseBet(assignmentId, bet) {
-    this.db.list('/feedback/' + bet.revieweeId + '/' + assignmentId + '/bets').push(bet);
+  releaseBet(assignmentId, revieweeId, bet) {
+    return this.db.list('/feedback/' + revieweeId + '/' + assignmentId + '/bets').push(bet);
   }
 
-  releaseBear(assignmentId, bear) {
-    this.db.list('/feedback/' + bear.revieweeId + '/' + assignmentId + '/bears').push(bear);
+  releaseBear(assignmentId, revieweeId, bear) {
+    return this.db.list('/feedback/' + revieweeId + '/' + assignmentId + '/bears').push(bear);
   }
 }
