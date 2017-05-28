@@ -1,7 +1,7 @@
 <md-card>
   <md-card-content>
-    <p class="center large-font bold">{{teamBetBearForm?.reviewerName}}: {{teamBetBearForm?.assignmentName}}</p>
-    <p class="center small-font">
+    <p class="large-font bold">{{teamBetBearForm?.reviewerName}}: {{teamBetBearForm?.assignmentName}}</p>
+    <p class="small-font">
       <span *ngIf="teamBetBearForm?.status == 2">Reviewed</span>
       <span *ngIf="teamBetBearForm?.status == 1">Submitted, ready for review</span>
       <span *ngIf="teamBetBearForm?.status == 0">Not yet submitted</span>
@@ -29,7 +29,14 @@
             <input [(ngModel)]="bet.thankYou" mdInput disabled>
           </md-input-container>
 
-          <button  (click)="releaseBet(bet)" md-button color="primary" class="full-width">Release this BET to {{betBearForm.revieweeName}}</button>
+          <ng-container *ngIf="teamBetBearForm.status == 1">
+            <button (click)="bet.released = true" md-button color="primary" class="full-width" *ngIf="!bet.released">Mark for release to {{betBearForm.revieweeName}}</button>
+            <button (click)="bet.released = false" md-button color="accent" class="full-width" *ngIf="bet.released">Mark to be withheld from {{betBearForm.revieweeName}}</button>
+          </ng-container>
+          <ng-container *ngIf="teamBetBearForm.status == 2">
+            <button md-button disabled color="primary" class="full-width" *ngIf="!bet.released">Withheld from {{betBearForm.revieweeName}}</button>
+            <button md-button disabled color="accent" class="full-width" *ngIf="bet.released">Released to {{betBearForm.revieweeName}}</button>
+          </ng-container>
         </md-card-content>
       </md-card>
 
@@ -55,10 +62,17 @@
             <textarea [(ngModel)]="bear.result" rows="3" mdInput disabled></textarea>
           </md-input-container>
 
-          <button (click)="releaseBet(bear)" md-button color="primary" class="full-width">Release this BEAR to {{betBearForm.revieweeName}}</button>
+          <ng-container *ngIf="teamBetBearForm.status == 1">
+            <button (click)="bear.released = true" md-button color="primary" class="full-width" *ngIf="!bear.released">Mark for release to {{betBearForm.revieweeName}}</button>
+            <button (click)="bear.released = false" md-button color="accent" class="full-width" *ngIf="bear.released">Mark to be withheld from {{betBearForm.revieweeName}}</button>
+          </ng-container>
+          <ng-container *ngIf="teamBetBearForm.status == 2">
+            <button md-button disabled color="primary" class="full-width" *ngIf="!bear.released">Withheld from {{betBearForm.revieweeName}}</button>
+            <button md-button disabled color="accent" class="full-width" *ngIf="bear.released">Released to {{betBearForm.revieweeName}}</button>
+          </ng-container>
         </md-card-content>
       </md-card>
   </md-tab>
 </md-tab-group>
 
-<md-card class="no-pad margin-top-zero"><button md-raised-button color="accent" class="full-width" (click)="markAsReviewed()">Mark review as completed</button></md-card>
+<md-card class="no-pad margin-top-zero"><button md-raised-button color="accent" class="full-width" (click)="completeReview()" *ngIf="teamBetBearForm?.status == 1">Complete review and release BETS/BEARS</button></md-card>

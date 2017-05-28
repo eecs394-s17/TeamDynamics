@@ -15,10 +15,12 @@ exports.CreateActivity = function(students){
   console.log(students);
   var teams = {};
   var uniqueIds = [];
-  sdate = students[0][1];
-  console.log(sdate);
-  edate = students[0][2];
+
   assignmentname = students[0][0];
+  sdate = Date.parse(students[0][1]);
+  edate = Date.parse(students[0][2]);
+  console.log(sdate);
+  console.log(sdate.valueOf());
   for (var i = 2; i < students.length; i++) {
     var teamKey = students[i][3];
     if (teams.hasOwnProperty(teamKey)) {
@@ -37,8 +39,8 @@ exports.CreateActivity = function(students){
           'reviewerName': team[i][1],
           'reviewerId': emailKey(team[i][2]),
           'individualBetBearForms': [],
-          'startDate' : sdate,
-          'endDate' : edate,
+          'startDate' : sdate.valueOf(),
+          'endDate' : edate.valueOf(),
           'assignmentName' : assignmentname,
           'assignmentId' : ''
         };
@@ -132,13 +134,15 @@ function addBetsBears(form) {
     form.bets.push({
       'behavior': "",
       'effect': "",
-      'thankYou': ""
+      'thankYou': "",
+      'released': false
     });
     form.bears.push({
       'behavior': "",
       'effect': "",
       'alternative': "",
-      'result': ""
+      'result': "",
+      'released': false
     });
   }
 }

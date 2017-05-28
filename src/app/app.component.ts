@@ -13,7 +13,6 @@ export class AppComponent {
 
   constructor(public usersService: UsersService, private router: Router) {
     this.sideBarOpen = false;
-    this.title = "DSGN 384";
   }
 
   toggleSidebar() {

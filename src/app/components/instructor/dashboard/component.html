@@ -1,8 +1,8 @@
 <md-nav-list>
   <ng-container *ngFor="let assignment of assignments">
     <h3 md-subheader>{{assignment.name}}</h3>
-    <md-list-item *ngFor="let formId of assignment?.forms">
-      <a md-line (click)="openForm(forms[formId])">{{forms[formId].reviewerName}}</a>
+    <md-list-item *ngFor="let formId of assignment?.forms" (click)="openForm(forms[formId])">
+      <a md-line>{{forms[formId].reviewerName}}</a>
       <p md-line>
         <span *ngIf="forms[formId]?.status == 2">Reviewed</span>
         <span *ngIf="forms[formId]?.status == 1">Submitted, ready for review</span>
