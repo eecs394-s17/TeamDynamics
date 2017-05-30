@@ -43,7 +43,6 @@ export class InstructorDashboardComponent implements OnInit {
   downloadCsv(){
     var data = [];
     this.formsService.allForms().subscribe((snapshot) => {
-      // new Angular2Csv(snapshot, snapshot);
       for(var i = 0; i < snapshot.length; i ++){
 
         var snap = snapshot[i];
@@ -64,15 +63,7 @@ export class InstructorDashboardComponent implements OnInit {
         data.push([]);
         data.push([]);
       }
-      new Angular2Csv(data, 'test');
+      new Angular2Csv(data, 'AllForms');
     });
-
-    // var data = [
-    //   ['mid quarter'],
-    //   [],
-    //   ['kevin'],
-    //   ['bet:tina', 'a', 'b', 'c'],
-    //   ['bear:tina', 'a', 'b', 'c', 'd']
-    // ];
   }
 }
