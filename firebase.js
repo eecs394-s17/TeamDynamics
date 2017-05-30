@@ -21,7 +21,7 @@ exports.CreateActivity = function(students){
   edate = Date.parse(students[0][2]);
   console.log(sdate);
   console.log(sdate.valueOf());
-  for (var i = 2; i < students.length; i++) {
+  for (var i = 0; i < students.length; i++) {
     var teamKey = students[i][3];
     if (teams.hasOwnProperty(teamKey)) {
         teams[teamKey].push(students[i]);
@@ -70,7 +70,7 @@ exports.CreateActivity = function(students){
   };
   assignmentid = CreateAssignment(assignment);
   UpdateAssignmentId(assignmentid, uniqueIds);
-  for(var i = 2; i < students.length; i ++){
+  for(var i = 0; i < students.length; i ++){
     var key = emailKey(students[i][2]);
     CreateFeedback(key, assignmentid, assignmentname);
   }
