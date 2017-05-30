@@ -32,21 +32,25 @@ app.get('*', (req, res) => {
 app.all('/post', (req, res) => {
   var count = 0;
   var students = [];
+  var assignmentInfo;
   req.pipe(csv())
   .on('error',function(err){
     console.error('error', err);
   })
   .on('data',function(data){
-    count ++;
-    if(count > 5 && data.length > 1) students.push(data);
-    if(count > 7 && data.length > 1){
+    if(count == 5 && data.length > 1) {
+      assignmentInfo = data;
+    }
+    else if(count > 6 && data.length > 1) {
+      students.push(data);
       firebase.CreateStudents(data);
     }
+    count++;
   })
   .on('end', _=> {
-    firebase.CreateActivity(students);
+    firebase.CreateActivity(assignmentInfo, students);
    });
-  res.send('test');
+  res.send('');
 });
 
 const port = process.env.PORT || '3000';

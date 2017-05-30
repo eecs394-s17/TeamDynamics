@@ -10,25 +10,27 @@ var apiKey = {
 firebase.initializeApp(apiKey);
 
 
-exports.CreateActivity = function(students){
+exports.CreateActivity = function(assignmentInfo, students){
   console.log('in create activity');
+  console.log(assignmentInfo);
   console.log(students);
+
   var teams = {};
   var uniqueIds = [];
 
-  assignmentname = students[0][0];
-  sdate = Date.parse(students[0][1]);
-  edate = Date.parse(students[0][2]);
-  console.log(sdate);
-  console.log(sdate.valueOf());
-  for (var i = 2; i < students.length; i++) {
-    var teamKey = students[i][3];
+  assignmentname = assignmentInfo[0];
+  sdate = Date.parse(assignmentInfo[1]);
+  edate = Date.parse(assignmentInfo[2]);
+
+  for (var i = 0; i < students.length; i++) {
+    var teamKey = parseInt(students[i][3]);
     if (teams.hasOwnProperty(teamKey)) {
         teams[teamKey].push(students[i]);
     } else {
       teams[teamKey] = [students[i]];
     }
   }
+  console.log(teams);
   var db = firebase.app().database().ref('/forms');
   for (var teamKey in teams) {
     if (teams.hasOwnProperty(teamKey)) {
@@ -70,11 +72,10 @@ exports.CreateActivity = function(students){
   };
   assignmentid = CreateAssignment(assignment);
   UpdateAssignmentId(assignmentid, uniqueIds);
-  for(var i = 2; i < students.length; i ++){
+  for(var i = 0; i < students.length; i ++){
     var key = emailKey(students[i][2]);
     CreateFeedback(key, assignmentid, assignmentname);
   }
-
 };
 
 function CreateAssignment(assignment){
