@@ -30,6 +30,7 @@ app.all('/post', (req, res) => {
     console.error('error', err);
   })
   .on('data',function(data){
+    console.log('test2');
     if(count == 5 && data.length > 1) {
       assignmentInfo = data;
     }
@@ -40,6 +41,7 @@ app.all('/post', (req, res) => {
     count++;
   })
   .on('end', _=> {
+    console.log('test3');
     firebase.CreateActivity(assignmentInfo, students);
    });
   res.send('');
