@@ -1,1 +1,53 @@
-<h1>FEEEDBAACKK</h1>
+<md-card>
+  <md-card-title>
+    {{ feedback?.assignmentName}}
+  </md-card-title>
+</md-card>
+<md-card *ngIf="feedback?.bets.length == 0 && feedback?.bears.length == 0">
+  <md-card-content>
+    Your instructor hasn't published your feedback for this assignment yet.
+  </md-card-content>
+</md-card>
+      <md-card *ngFor="let bet of feedback?.bets; let i = index">
+        <md-card-subtitle>
+          <b class="large-font header"> BET<span *ngIf="feedback.bets?.length > 1"> {{i + 1}}</span> (positive feedback)</b>
+        </md-card-subtitle>
+        <md-card-content>
+          <label class="title bold">B (behavior)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bet.behavior" rows="3" mdInput disabled> </textarea>
+          </md-input-container>
+          <label class="title bold">E (effect)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bet.effect" rows="3" mdInput  disabled></textarea>
+          </md-input-container>
+          <label class="title bold">T (thank you)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <input [(ngModel)]="bet.thankYou" mdInput disabled>
+          </md-input-container>
+        </md-card-content>
+      </md-card>
+
+      <md-card *ngFor="let bear of feedback?.bears; let j = index">
+        <md-card-subtitle>
+          <b class="large-font header">BEAR<span *ngIf="feedback.bears?.length > 1"> {{j + 1}}</span> (constructive feedback)</b>
+        </md-card-subtitle>
+        <md-card-content>
+          <label class="title bold">B (behavior)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.behavior" rows="3" mdInput disabled></textarea>
+          </md-input-container>
+          <label class="title bold">E (effect)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.effect" rows="3" mdInput disabled></textarea>
+          </md-input-container>
+          <label class="title bold">A (alternative)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.alternative" rows="3" mdInput disabled></textarea>
+          </md-input-container>
+          <label class="title bold">R (result)</label>
+          <md-input-container class="full-width" floatPlaceholder="never">
+            <textarea [(ngModel)]="bear.result" rows="3" mdInput disabled></textarea>
+          </md-input-container>
+        </md-card-content>
+      </md-card>

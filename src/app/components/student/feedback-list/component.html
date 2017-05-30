@@ -1,14 +1,13 @@
 <md-nav-list>
 	<md-card>
-	  <md-card-content>
-	    <p class="center large-font bold">Your Feedback</p>
-	  </md-card-content>
+	  <md-card-title>
+	    Your Feedback
+	  </md-card-title>
 	</md-card>
 	<md-card>
 		<md-card-content>
-		  <md-list-item *ngFor="let form of feedbackForms | async" (click)="openFeedback()">
-		    <a md-line >Feedback <!-- {{ quarter/year/number }} --></a>
-		    <p md-line >Published on {{ form.published | date }} </p>
+		  <md-list-item *ngFor="let form of feedbackForms | async" (click)="openFeedback(form)">
+		    <a md-line >{{ form.assignmentName }}</a>
 		  </md-list-item>
 		</md-card-content>
 	</md-card>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsService } from '../../../services/forms.service';
 import { UsersService } from '../../../services/users.service';
 import { FirebaseListObservable } from 'angularfire2/database';
+import { FeedbackService } from '../../../services/feedback.service';
 
 import { Router } from '@angular/router';
 
@@ -18,15 +19,14 @@ export class StudentFeedbackListComponent implements OnInit {
 
   constructor (public usersService: UsersService,
     public formsService: FormsService,
-    private router: Router) {}
+    private router: Router,
+    private feedbackService: FeedbackService) {}
 
   ngOnInit(): void {
-    this.usersService.user.subscribe(snapshot => {
-      this.feedbackForms = this.formsService.formsByUserId(snapshot.uid);
-    });
+    this.feedbackForms = this.feedbackService.getFeedback(this.usersService.userId);
   }
 
-  openFeedback() {
-    this.router.navigate(['/student/feedback']);
+  openFeedback(form) {
+    this.router.navigate(['/student/feedback', form.$key]);
   }
 }

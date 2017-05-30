@@ -36,7 +36,7 @@ const routes: Routes = [
     canActivate: [StudentGuard]
   },
   {
-    path: 'student/feedback',
+    path: 'student/feedback/:id',
     component: StudentFeedbackComponent,
     canActivate: [StudentGuard]
   },

@@ -1,17 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
-
-import { Bet } from '../../../classes/bet';
-import { Bear } from '../../../classes/bear';
-import { IndividualBetBearForm } from '../../../classes/individual-bet-bear-form';
-import { TeamBetBearForm } from '../../../classes/team-bet-bear-form';
-
-import { FormsService } from '../../../services/forms.service';
-import { UsersService } from '../../../services/users.service';
-
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { Observable } from 'rxjs/Observable';
+import { UsersService } from '../../../services/users.service';
+import { FeedbackService } from '../../../services/feedback.service';
+import { FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-student-feedback',
@@ -19,75 +10,44 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./component.css']
 })
 export class StudentFeedbackComponent implements OnInit {
-  private teamMembers;
-  public teamBetBearForm: TeamBetBearForm;
+  public feedback
 
-  constructor (private formsService: FormsService,
+  constructor (private feedbackService: FeedbackService,
     private usersService: UsersService,
     private route: ActivatedRoute,
     private router: Router) {}
 
   ngOnInit(): void {
-    this.teamMembers = [
-      {name: 'Dave', id: '12asdf2'},
-      {name: 'Joe', id: '1t234w'}
-    ];
-
     this.route.params
       .subscribe(params => {
-        if (params['id']) {
-          this.initWithForm(params['id']);
-        } else {
-          this.initWithEmptyForm();
-        }
+        this.feedbackService.getFeedback(this.usersService.userId).subscribe(snapshot => {
+          for(var i = 0; i < snapshot.length; i++){
+            if (snapshot[i].$key == params['id']) {
+              var bets = [];
+              var bears = [];
+              if (snapshot[i].bears) {
+                for (var key in snapshot[i].bears) {
+                  if (snapshot[i].bears.hasOwnProperty(key)) {
+                    bears.push(snapshot[i].bears[key]);
+                  }
+                }
+              }
+              if (snapshot[i].bets) {
+                for (var key in snapshot[i].bets) {
+                  if (snapshot[i].bets.hasOwnProperty(key)) {
+                    bets.push(snapshot[i].bets[key]);
+                  }
+                }
+              }
+              this.feedback = snapshot[i];
+              this.feedback['bears'] = bears;
+              this.feedback['bets'] = bets;
+              console.log(this.feedback);
+            } 
+          }
+        });
+        
       })
   }
 
-  initWithForm(formId: string): void {
-    console.log(formId);
-    this.formsService.getForm(formId).subscribe(snapshot => {
-      console.log(snapshot);
-      this.teamBetBearForm = snapshot as TeamBetBearForm;
-      console.log(this.teamBetBearForm);
-    });
-  }
-
-  initWithEmptyForm(): void {
-    this.teamBetBearForm = new TeamBetBearForm();
-    this.usersService.user.subscribe(snapshot => {
-      this.teamBetBearForm.reviewerName = snapshot.displayName;
-      this.teamBetBearForm.reviewerId = snapshot.uid;
-    });
-    this.teamBetBearForm.status = 0;
-    for (var i = 0; i < this.teamMembers.length; i++) {
-      this.teamBetBearForm.addIndividualBetBearForm(this.teamMembers[i].id, this.teamMembers[i].name, 2, 2);
-    }
-  }
-
-  addBet(betBearForm: IndividualBetBearForm): void {
-    betBearForm.bets.push(new Bet());
-  }
-
-  addBear(betBearForm: IndividualBetBearForm): void {
-    betBearForm.bears.push(new Bear());
-  }
-
-  removeBet(betBearForm: IndividualBetBearForm, j: number): void {
-    betBearForm.bets.splice(j,1);
-  }
-
-  removeBear(betBearForm: IndividualBetBearForm, j: number): void {
-    betBearForm.bears.splice(j,1);
-  }
-
-  save(teamBetBearForm: TeamBetBearForm): void {
-    teamBetBearForm.lastSaved = Date.now();
-    this.formsService.submitForm(teamBetBearForm);
-  }
-
-  submit(teamBetBearForm: TeamBetBearForm): void {
-    teamBetBearForm.status = 1;
-    teamBetBearForm.lastSaved = Date.now();
-    this.formsService.submitForm(teamBetBearForm);
-  }
 }

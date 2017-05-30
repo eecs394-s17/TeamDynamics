@@ -17,4 +17,5 @@ export class FeedbackService {
   getFeedback(user){
     return this.db.list('/feedback/' + user);
   }
+
 }
