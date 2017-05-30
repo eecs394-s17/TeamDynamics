@@ -13,7 +13,7 @@
   *ngFor="let betBearForm of teamBetBearForm?.individualBetBearForms" [label]="betBearForm.revieweeName" class="full-height">
 
     <!-- if form has not yet been submitted -->
-    <ng-container *ngIf="teamBetBearForm.status == 0 && Date.now() < teamBetBearForm.endDate">
+    <ng-container *ngIf="teamBetBearForm.status == 0 && currentDate < teamBetBearForm.endDate">
       <md-card *ngFor="let bet of betBearForm.bets; let i = index">
         <md-card-subtitle>
           <b class="large-font header"> BET<span *ngIf="betBearForm.bets?.length > 1"> {{i + 1}}</span> (positive feedback) {{ betBearForm.revieweeName }}</b>
@@ -66,7 +66,7 @@
     </ng-container>
 
     <!-- If form has been submitted -->
-    <ng-container *ngIf="teamBetBearForm.status != 0 || Date.now() >= teamBetBearForm?.endDate">
+    <ng-container *ngIf="teamBetBearForm.status != 0 || currentDate >= teamBetBearForm?.endDate">
       <md-card *ngFor="let bet of betBearForm.bets; let i = index">
         <md-card-subtitle>
           <b class="large-font header">BET<span *ngIf="betBearForm.bets?.length > 1"> {{i + 1}}</span> (positive feedback) {{ betBearForm.revieweeName }}</b>
@@ -114,6 +114,6 @@
   </md-tab>
 </md-tab-group>
 
-<md-card class="no-pad margin-top-zero" *ngIf="teamBetBearForm?.status == 0 && Date.now() < teamBetBearForm?.endDate"><button md-raised-button color="accent" class="full-width" (click)="save()"> Save as draft</button></md-card>
+<md-card class="no-pad margin-top-zero" *ngIf="teamBetBearForm?.status == 0 && currentDate < teamBetBearForm?.endDate"><button md-raised-button color="accent" class="full-width" (click)="save()"> Save as draft</button></md-card>
 
-<md-card class="no-pad" *ngIf="teamBetBearForm?.status == 0 && Date.now() < teamBetBearForm?.endDate"><button  type="submit" md-raised-button color="primary" class="full-width" (click)="submit()"> Submit </button></md-card>
+<md-card class="no-pad" *ngIf="teamBetBearForm?.status == 0 && currentDate < teamBetBearForm?.endDate"><button  type="submit" md-raised-button color="primary" class="full-width" (click)="submit()"> Submit </button></md-card>

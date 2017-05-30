@@ -19,6 +19,7 @@ import { FormsService } from '../../../services/forms.service';
 export class StudentBetBearFormComponent implements OnInit {
   public teamBetBearForm: TeamBetBearForm;
   public formObservable: FirebaseObjectObservable<any>;
+  public currentDate;
 
   constructor (private formsService: FormsService,
     private route: ActivatedRoute,
@@ -29,8 +30,10 @@ export class StudentBetBearFormComponent implements OnInit {
     this.route.params
       .subscribe(params => {
         this.initWithForm(params['id']);
-      })
+      });
+    this.currentDate = Date.now();
   }
+
 
   initWithForm(formId: string): void {
     this.formObservable = this.formsService.getForm(formId)

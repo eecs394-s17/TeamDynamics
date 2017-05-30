@@ -24,7 +24,6 @@ exports.CreateActivity = function(assignmentInfo, students){
 
   for (var i = 0; i < students.length; i++) {
     var teamKey = parseInt(students[i][3]);
-
     if (teams.hasOwnProperty(teamKey)) {
         teams[teamKey].push(students[i]);
     } else {
