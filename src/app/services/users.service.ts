@@ -39,7 +39,7 @@ export class UsersService {
               router.navigate(['/instructor/dashboard']);
             } else {
               router.navigate(['/login']);
-              this.afAuth.auth.signOut();
+              this.logout();
               this.snackbar.open("Oops, this user does not the correct permissions!");
               setTimeout(_ => this.snackbar.dismiss(), 5000);
             }
@@ -56,6 +56,7 @@ export class UsersService {
   }
 
   logout(): firebase.Promise<any> {
+    this.permission = 0;
     return this.afAuth.auth.signOut();
   }
 

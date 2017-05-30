@@ -14,7 +14,7 @@ export class FeedbackService {
   releaseBear(assignmentId, revieweeId, bear) {
     return this.db.list('/feedback/' + revieweeId + '/' + assignmentId + '/bears').push(bear);
   }
-  getFeedBack(user){
+  getFeedback(user){
     return this.db.list('/feedback/' + user);
   }
 }
