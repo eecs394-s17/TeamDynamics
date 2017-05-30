@@ -3,7 +3,6 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const csv = require('fast-csv');
-const api = require('./server/routes/api');
 var firebase = require('./firebase.js');
 const app = express();
 
@@ -12,22 +11,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use('/api', api);
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
-// app.get('/download', (req, res) => {
-//   firebase.GetInfo((snapshot) => {
-//       var data = csv.createWriteStream("test.csv");
-//       csv
-//       .write(snapshot)
-//       .pipe(data);
-//       console.log(data);
-//       res.send(snapshot);
-//   });
-//
-// });
 
 app.all('/post', (req, res) => {
   var count = 0;

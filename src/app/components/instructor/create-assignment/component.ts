@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
-const URL = 'http://localhost:3000/post';
+const URL = 'https://infinite-ravine-89186.herokuapp.com/post';
 
 @Component ({
   selector: 'app-create-assignment',
