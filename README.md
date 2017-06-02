@@ -71,18 +71,25 @@ A list of the tools (and some resources) we used on this project that would be g
 
 - Clone this repo and run `npm install`.
 - Create a new firebase account and a new firebase project.
-- In the project database, create an object for users and create an admin account for some email. The database should look like
-
-      project: {
-        users: {
-          example%40gmail%2ecom: {
-            name: 'John Doe',
-            permission: 2
-          }
-        }
-      }
-Note, the key for users is a URI encoded email (firebase does not like symbols in keys). A simple way of encoding these strings is by running `encodeURIComponent('example@gmail.com').split('.').join('%2e')` in any javascript console.
 - Replace the dummy firebase credentials in the following three files: `TeamDynamics/firebase.js`, `TeamDynamics/src/environments/environment.ts`, and `TeamDynamics/src/environments/environment.prod.ts`
+
+### Creating instructor accounts
+Currently the only way to create instructor accounts is through the firebase console:
+
+Open the firebase database and create a new object for an instructor user in the users list (if the users list does not exist, create that as well). The database should look as below.
+
+    project: {
+      users: {
+        example%40gmail%2ecom: {
+          name: 'John Doe',
+          permission: 2
+        },
+        ...
+      },
+      ...
+    }
+
+Note, the key for each user is an encoded email (firebase does not like symbols in keys). A simple way of encoding these strings is by running `encodeURIComponent('example@gmail.com').split('.').join('%2e')` in any javascript console.
 
 ### Live server
 
