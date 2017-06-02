@@ -42,7 +42,7 @@ export class InstructorDashboardComponent implements OnInit {
 
   downloadCsv(){
     var data = [];
-    this.formsService.allForms().subscribe((snapshot) => {
+    this.formsService.allForms().first().subscribe((snapshot) => {
       for(var i = 0; i < snapshot.length; i ++){
 
         var snap = snapshot[i];

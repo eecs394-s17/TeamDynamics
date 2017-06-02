@@ -31,43 +31,42 @@ export class StudentFeedbackListComponent implements OnInit {
   }
 
   downloadCsv(){
-    this.feedbackService.getFeedback(this.usersService.userId).subscribe((snapshot) => {
-        var bets = [];
-        var bears = [];
+    this.feedbackService.getFeedback(this.usersService.userId).first().subscribe((snapshot) => {
+        var data = [];
         console.log(snapshot);
         for (var i = 0; i < snapshot.length; i++) {
           var assignment = snapshot[i];
-          var name = assignment.assignmentName;
+          data.push(['Assignment',assignment.assignmentName]);
           if (assignment.bears) {
+            data.push(['bears']);
             for (var bearId in assignment.bears) {
               if (assignment.bears.hasOwnProperty(bearId)) {
                 var bear = assignment.bears[bearId];
-                bears.push({
-                  'assignment': name,
-                  'behavior': bear.behavior,
-                  'effect': bear.effect,
-                  'alternative': bear.alternative,
-                  'result': bear.result
-                });
+                data.push([
+                  'behavior: ' + bear.behavior,
+                  'effect: ' + bear.effect,
+                  'alternative: ' + bear.alternative,
+                  'result: ' + bear.result
+                ]);
               }
             }
           }
           if (assignment.bets) {
+            data.push(['bets']);
             for (var betId in assignment.bets) {
               if (assignment.bets.hasOwnProperty(betId)) {
                 var bet = assignment.bets[betId];
-                bets.push({
-                  'assignment': name,
-                  'behavior': bet.behavior,
-                  'effect': bet.effect,
-                  'thank you': bet.thankYou
-                });
+                data.push([
+                  'assignment: ' +  name,
+                  'behavior: ' + bet.behavior,
+                  'effect: ' + bet.effect,
+                  'thank you: ' + bet.thankYou
+                ]);
               }
             }
           }
         }
-        new Angular2Csv(bets, 'Bet Feedback ' + String(this.usersService.userId));
-        new Angular2Csv(bears, 'Bear Feedback ' + String(this.usersService.userId));
+        new Angular2Csv(data, 'Bet/Bear Feedback ' + String(this.usersService.userId));
     });
 
   }
