@@ -67,9 +67,11 @@ A list of the tools (and some resources) we used on this project that would be g
 - [Heroku](https://devcenter.heroku.com/categories/nodejs), [Deploying Angular 2 apps to Heroku](https://medium.com/@ryanchenkie_40935/angular-cli-deployment-host-your-angular-2-app-on-heroku-3f266f13f352)
 - [Angular Material](https://material.angular.io)
 
-### Firebase setup
+### Setup
 
-- Clone this repo and run `npm install`.
+- Clone this repo to the desired location and run `npm install`.
+
+### Firebase setup
 - Create a new firebase account and a new firebase project.
 - Replace the dummy firebase credentials in the following three files: `TeamDynamics/firebase.js`, `TeamDynamics/src/environments/environment.ts`, and `TeamDynamics/src/environments/environment.prod.ts`
 
@@ -104,3 +106,6 @@ Run `ng build -prod && node server.js` for a dev server. Navigate to `http://loc
 - Data validation (such as: students can only see their own forms and their own feedback; forms that have already been submitted cannot be submitted again; forms that are past their due date cannot be submitted) is currently handled on the front end. For a secure product, this validation needs to be moved to server side.
 - The system is currently designed for a single class. In order to handle multiple classes, assignments and forms need to be linked to specific instructors (this is a minor change if each class has a single instructor).
 - Authentication is currently done through Google login. We verify on the front end that the log in information matches some account in the system. However, only Google authentication is needed to edit the database. In the future this authentication needs to be handled on the back end and changed to a Northwestern NetID log in.
+- This system is built on Node and can be deployed to any existing server capable of hosting Node apps.
+- The app is currently hosted on Heroku which shuts down server connection after 1/2 an hour of inactivity. For more reliable hosting, our app can be hosted on a Northwestern server.
+- Currently, instructors can set deadline for an assignment but no automatic reminder is sent out to students. In the future, the system should automatically send out notification about approaching deadline if a form has not been submitted.
