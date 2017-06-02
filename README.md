@@ -67,6 +67,23 @@ A list of the tools (and some resources) we used on this project that would be g
 - [Heroku](https://devcenter.heroku.com/categories/nodejs), [Deploying Angular 2 apps to Heroku](https://medium.com/@ryanchenkie_40935/angular-cli-deployment-host-your-angular-2-app-on-heroku-3f266f13f352)
 - [Angular Material](https://material.angular.io)
 
+### Firebase setup
+
+- Clone this repo and run `npm install`.
+- Create a new firebase account and a new firebase project.
+- In the project database, create an object for users and create an admin account for some email. The database should look like
+
+      project: {
+        users: {
+          example%40gmail%2ecom: {
+            name: 'John Doe',
+            permission: 2
+          }
+        }
+      }
+Note, the key for users is a URI encoded email (firebase does not like symbols in keys). A simple way of encoding these strings is by running `encodeURIComponent('example@gmail.com').split('.').join('%2e')` in any javascript console.
+- Replace the dummy firebase credentials in the following three files: `TeamDynamics/firebase.js`, `TeamDynamics/src/environments/environment.ts`, and `TeamDynamics/src/environments/environment.prod.ts`
+
 ### Live server
 
 The website is currently hosted at `https://infinite-ravine-89186.herokuapp.com`.
