@@ -1,6 +1,6 @@
 # TeamDynamics
 
-This project was created for EECS 394 in Spring of 2017.
+This project was created for EECS 394, Spring 2017.
 
 ## Project status
 
